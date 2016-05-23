@@ -31,7 +31,7 @@ namespace Server
                     byte[] bufer = new byte[1024];
                     int bytesRec = MainSocket.Receive(bufer);
                     if (HaveMessage != null)
-                        HaveMessage(Encoding.ASCII.GetString(bufer, 0, bytesRec) + string.Format(" From User {0} IP {1} ;", Name, MainSocket.RemoteEndPoint));
+                        HaveMessage(Encoding.ASCII.GetString(bufer, 0, bytesRec), this);
                 }
             }
             catch (Exception)
@@ -62,7 +62,7 @@ namespace Server
         /// <summary>
         /// Делегат, который реализует метод приема сообщений.
         /// </summary>
-        public event Action<string> HaveMessage;
+        public event Action<string, Client> HaveMessage;
 
         /// <summary>
         /// Делегат, реализующий метод, который отвечает за разрыв связи.

@@ -36,6 +36,7 @@ namespace Server
         public event Action<string> ClientDisconnect;
         public event Action<string> NewMessage;
         public event Action<string> UserConnected;
+        public event Action<string> Error;
 
         /// <summary>
         /// Подписываемся на сообщения от всех клиентов
@@ -70,22 +71,29 @@ namespace Server
             ClientDisconnect?.Invoke(sender.Name);
         }
 
-        private void _client_message(string msg)
+        private void _client_message(string msg, Client sender)
         {
             if (msg != null)
             {
                 Msgs.Add(msg);
-                NewMessage?.Invoke(msg);
+                NewMessage?.Invoke(Clients.IndexOf(sender) + ':' + msg);
             }
         }
         #endregion
 
+        /// <summary>
+        /// Отправить клиенту под номером
+        /// </summary>
+        /// <param name="ID">номнр клиента</param>
+        /// <param name="msg">сообщение</param>
         public void SendTo(byte ID, string msg)
         {
             Clients[ID].Send(msg);
         }
 
-
+        /// <summary>
+        /// Запустить сервер
+        /// </summary>
         public void StartSRV()
         {
             try
@@ -98,7 +106,7 @@ namespace Server
                     byte[] bufer = new byte[1024];
                     int size = temp.Receive(bufer);
                     Clients.Add(new Client(temp, Encoding.ASCII.GetString(bufer, 0, size)));
-                    UserConnected(string.Format("User {0}", Clients.Last().Name));
+                    UserConnected(Clients.Last().Name);
                     //подписываемся
                     Clients.Last().ClientDisconect += SRV_ClientDisconect;
                     Clients.Last().HaveMessage += _client_message;
@@ -110,7 +118,7 @@ namespace Server
             }
             catch (Exception ex)
             {
-                throw ex;
+                Error?.Invoke(ex.Message);
             }
         }
 

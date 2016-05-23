@@ -56,6 +56,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ServerMessanger.cs" />
+    <Compile Include="SrvMsgConvertet.cs" />
+    <Compile Include="Strit.cs" />
+    <Compile Include="Strits.cs" />
+    <Compile Include="UserData.cs" />
     <Page Include="Server.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

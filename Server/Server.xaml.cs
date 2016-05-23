@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
+
+
 namespace Server
 {
     /// <summary>
@@ -21,6 +23,7 @@ namespace Server
     public partial class ServerForm : Window
     {
         IServerMessanger S1 = new ServerMessanger();
+        List<WpfApplication1.UserData> Users = new List<WpfApplication1.UserData>(8);
 
         public ServerForm()
         {
@@ -52,6 +55,8 @@ namespace Server
             Action Log = () => listBox.Items.Add(obj);
             Dispatcher.Invoke(Log);
             //тут обработка сообщения
+            SrvMsgConvertet.Parse(obj);
+            
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
