@@ -22,7 +22,15 @@ namespace WpfApplication1
             //    form.ShowDialog();
             //});
             //th.Start();
-            Dispatcher.Invoke(() => { form.ShowDialog(); });
+            Dispatcher.Invoke(() => 
+            {
+                Thread th = new Thread(() =>
+                {
+                    form.ShowDialog();
+                });
+                th.Start();
+            });
+            
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -33,13 +41,21 @@ namespace WpfApplication1
             //    form.ShowDialog();
             //});
             //th.Start();
-            Dispatcher.Invoke(() => { form.ShowDialog(); });
+            // Dispatcher.Invoke(() => { form.ShowDialog(); this.Show(); });
+            Dispatcher.Invoke(() =>
+            {
+                Thread th = new Thread(() =>
+                {
+                    form.ShowDialog();
+                });
+                th.Start();
+            });
+
         }
 
-        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
             System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
-
     }
 }
