@@ -9,13 +9,14 @@
         Loaded="Window_Loaded"
         Closed="Window_Closed">
     <Grid>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" />
         <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="69" Margin="149,41,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="149,10,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="label" Content="История" HorizontalAlignment="Left" Margin="149,10,0,0" VerticalAlignment="Top" Width="100"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,158,0,0" TextWrapping="Wrap" Text="Enter Your Name" VerticalAlignment="Top" Width="120" GotFocus="textBox_GotFocus"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="10,186,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button" Content="Find Server" HorizontalAlignment="Left" Margin="149,161,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" ToolTip="" />
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="149,189,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="10,186,0,0" TextWrapping="Wrap" Text="Enter a message" VerticalAlignment="Top" Width="120" GotFocus="textBox1_GotFocus"/>
+        <Button x:Name="button" Content="Find Server" HorizontalAlignment="Left" Margin="149,161,0,0" VerticalAlignment="Top" Width="86" Click="button_Click" ToolTip="" />
+        <Button x:Name="button1" Content="Send Message" HorizontalAlignment="Left" Margin="149,189,0,0" VerticalAlignment="Top" Width="86" Click="button1_Click"/>
+        <Button x:Name="button2" Content="Transaction" HorizontalAlignment="Left" Margin="149,214,0,0" VerticalAlignment="Top" Width="86" Click="button2_Click"/>
 
     </Grid>
 </Window>

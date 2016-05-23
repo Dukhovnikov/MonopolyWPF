@@ -93,14 +93,12 @@ namespace User
             this.Dispatcher.Invoke(act);
             userConvert.Parse(obj);
         }
-
         private void UserConvert_UpdateDeposit(int arg1, string arg2)
         {
             MessageBox.Show(arg2);
             Action act = () => label.Content = arg1.ToString();
             this.Dispatcher.Invoke(act);
         }
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -125,20 +123,27 @@ namespace User
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             (user as UserMessanger).Disconnect();
         }
-
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             user.SendToSRV(textBox1.Text);
         }
-
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             textBox.Text = "";
+        }
+        private void textBox1_GotFocus(object sender, RoutedEventArgs e)
+        {
+            textBox.Text = "";
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            var form = new Transaction();
+            form.ShowDialog();
         }
     }
 }

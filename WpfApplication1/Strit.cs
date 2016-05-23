@@ -6,9 +6,25 @@ using System.Threading.Tasks;
 
 namespace WpfApplication1
 {
-    public
-    class Strit
+    public class Strit
     {
+        public enum Color
+        {
+            Коричневый,
+            Голубой,
+            Розовый,
+            Оранжевый,
+            Красный,
+            Желтый, 
+            Зеленый,
+            Синий,
+            ЖД,
+            Электростанция,
+            Водопровод
+        }
+
+        public Color Type { get; private set; }
+
         /// <summary>
         /// Владелец.
         /// </summary>
@@ -38,6 +54,11 @@ namespace WpfApplication1
         public bool IsLaid { get; set; }
 
         /// <summary>
+        /// Цена за одну улицу.
+        /// </summary>
+        public int StreetPrice { get; private set; }
+
+        /// <summary>
         /// Цена за один дом.
         /// </summary>
         public int HousePrice { get; private set; }
@@ -48,9 +69,11 @@ namespace WpfApplication1
         /// <param name="StritName">Название улицы</param>
         /// <param name="HousePrice">Цена за один дом</param>
         /// <param name="Rent">Рента</param>
-        public Strit(string StritName, int HousePrice, int[] Rent)
+        public Strit(Color Type ,string StritName, int StreetPrice ,int HousePrice, int[] Rent)
         {
+            this.Type = Type;
             this.StritName = StritName;
+            this.StreetPrice = StreetPrice;
             this.HousePrice = HousePrice;
             this.Rent = Rent;
             IsLaid = false;

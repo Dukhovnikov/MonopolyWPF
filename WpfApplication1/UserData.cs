@@ -7,19 +7,37 @@ using System.Net;
 
 namespace WpfApplication1
 {
-    public
-    class UserData
+    /// <summary>
+    /// Искусственный клас, реализующий информмацию о пользователе.
+    /// </summary>
+    public class UserData
     {
+        /// <summary>
+        /// Имя пользователя.
+        /// </summary>
         public string UserName;
+
+        /// <summary>
+        /// Адрес пользователя.
+        /// </summary>
         IPEndPoint _socket;
 
+        /// <summary>
+        /// Получение адреса пользователя.
+        /// </summary>
         public string getSocket()
         {
             return _socket.ToString();
         }
 
+        /// <summary>
+        /// Улицы принадлежащие пользователю.
+        /// </summary>
         public int[] StritNum { get; set; }
 
+        /// <summary>
+        /// Функция возращающая список улиц, купленных пользователем.
+        /// </summary>
         public List<Strit> StritList
         {
             get
@@ -31,6 +49,15 @@ namespace WpfApplication1
                 }
                 return rez;
             }
+        }
+
+        /// <summary>
+        /// Конструктор класса задающий имя пользователя и его адрес.
+        /// </summary>
+        public UserData(string UserName, IPEndPoint _socket)
+        {
+            this.UserName = UserName;
+            this._socket = _socket;
         }
     }
 }

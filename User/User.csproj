@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Transaction.xaml.cs">
+      <DependentUpon>Transaction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserMessanger.cs" />
     <Compile Include="UserMsgConverter.cs" />
     <Page Include="Client.xaml">
@@ -73,6 +76,10 @@
       <DependentUpon>Client.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Transaction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
