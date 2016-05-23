@@ -11,17 +11,20 @@ namespace WpfApplication1
     {
         List<Strit> strits;
 
+        /// <summary>
+        /// типа выбор по имени
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public List<Strit> this[string name]
         {
             get
             {
-                List<Strit> rez = new List<Strit>();
                 var re =
                     from stq in strits
                     where stq.Owner.UserName == name
                     select stq;
-                rez.Add(re as Strit);
-                return rez;
+                return re.ToList();
             }
         }
     }
