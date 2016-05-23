@@ -9,7 +9,11 @@ namespace WpfApplication1
     public 
     class Strits
     {
-        public static List<Strit> strits;
+        public static List<Strit> strits = new List<Strit>
+        {
+            new Strit(),
+            new Strit(),
+        };
 
         /// <summary>
         /// типа выбор по имени
