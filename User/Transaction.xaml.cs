@@ -19,11 +19,18 @@ namespace User
     /// </summary>
     public partial class Transaction : Window
     {
+        IUserMessanger user;
         public Transaction()
         {
             InitializeComponent();
+
         }
 
+        public Transaction(IUserMessanger user)
+        {
+            InitializeComponent();
+            this.user = user;
+        }
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             textBox.Text = "";
@@ -32,6 +39,11 @@ namespace User
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            //user.UDPSend()
         }
     }
 }

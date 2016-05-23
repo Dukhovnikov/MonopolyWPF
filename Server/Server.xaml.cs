@@ -43,7 +43,7 @@ namespace Server
 
         private void SrvMsgConvertet_Rent(byte ID, byte arg2)
         {
-            Users[ID].
+            //Users[ID].
         }
 
         private void SrvMsgConvertet_establish(byte ID, byte arg2)

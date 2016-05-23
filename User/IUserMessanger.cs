@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace User
 {
-    interface IUserMessanger
+    public interface IUserMessanger
     {
         void FindServer();
         void ConnectToSRV(string yourNick);
