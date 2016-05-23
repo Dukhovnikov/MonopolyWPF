@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfApplication1
+﻿namespace WpfApplication1
 {
-    public
-    class Strit
+    public class Strit
     {
         /// <summary>
         /// Владелец.
@@ -41,6 +34,7 @@ namespace WpfApplication1
         /// Цена за один дом.
         /// </summary>
         public int HousePrice { get; private set; }
+         
 
         /// <summary>
         /// Конструктор, инициализирующий улицу.
@@ -55,8 +49,6 @@ namespace WpfApplication1
             this.Rent = Rent;
             IsLaid = false;
             HouseValue = 0;
-        }
-
-        
+        }   
     }
 }
