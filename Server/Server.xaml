@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Server"
         mc:Ignorable="d"
-        Title="Server" Height="218.421" Width="525" Icon="favicon.ico">
-    <Grid>
+        Title="Server" Height="482.921" Width="705" Icon="favicon.ico">
+    <Grid Margin="0,0,2,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFE4F5F0" Offset="0.419"/>
@@ -14,11 +14,17 @@
                 <GradientStop Color="#FFB4ECDB" Offset="0.008"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="button" Content="SERVER ON" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" Click="button_Click" Height="27" FontFamily="Lucida Sans Unicode" FontSize="16" Background="{x:Null}" Foreground="#FF04422E"/>
-        <Button x:Name="button1" Content="GO" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="127" Click="button1_Click" Height="27" FontFamily="Lucida Sans Unicode" FontSize="16" Background="{x:Null}" Foreground="#FF04422E" BorderBrush="#FF086A4B"/>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="102" Margin="158,10,0,0" VerticalAlignment="Top" Width="349"/>
-        <Button x:Name="button2" Content="OK" HorizontalAlignment="Left" Margin="391,145,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click" FontFamily="Lucida Sans Unicode" FontSize="16" Height="27" Background="{x:Null}" Foreground="#FF04422E" BorderBrush="#FF086A4B"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="164" Height="27" ToolTip="Select user" FontFamily="Lucida Sans Unicode" FontSize="16"/>
+        <Button x:Name="button" Content="SERVER ON" HorizontalAlignment="Left" Margin="152,94,0,0" VerticalAlignment="Top" Width="127" Click="button_Click" Height="28" FontFamily="Lucida Sans Unicode" FontSize="16" Background="{x:Null}" Foreground="#FF04422E"/>
+        <Button x:Name="button1" Content="GO" HorizontalAlignment="Left" Margin="408,94,0,0" VerticalAlignment="Top" Width="126" Click="button1_Click" Height="28" FontFamily="Lucida Sans Unicode" FontSize="16" Background="{x:Null}" Foreground="#FF04422E" BorderBrush="#FF086A4B"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="102" Margin="31,150,0,0" VerticalAlignment="Top" Width="641" Foreground="#FF045D40" FontFamily="Lucida Sans Unicode" FontSize="16"/>
+        <Button x:Name="button2" Content="OK" HorizontalAlignment="Left" Margin="608,394,0,0" VerticalAlignment="Top" Width="62" Click="button2_Click" FontFamily="Lucida Sans Unicode" FontSize="16" Height="30" Background="{x:Null}" Foreground="#FF04422E" BorderBrush="#FF086A4B"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="269,394,0,0" VerticalAlignment="Top" Width="179" Height="30" ToolTip="Select user" FontFamily="Lucida Sans Unicode" FontSize="16" Foreground="#FF045D40"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="453,394,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="150" Foreground="#FF045D40" FontFamily="Lucida Sans Unicode" FontSize="16"/>
+        <Label x:Name="label" Content="Complete the transaction:" HorizontalAlignment="Left" Margin="31,394,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="16" Foreground="#FF023A28" Width="233" Background="{x:Null}"/>
+        <Label x:Name="label1" Content="Welcome to the bank server" HorizontalAlignment="Center" Margin="204,0,161,0" Foreground="#FF023A28" FontSize="21.333" FontFamily="Lucida Sans Unicode" FontWeight="Bold" VerticalAlignment="Top" Width="330"/>
+        <Label x:Name="label2" Content="To begin you need to connect the server (click &quot;SERVER ON&quot;) and start the game (click &quot;START&quot;)" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Foreground="#FF034F36" Height="33" FontSize="16"/>
+        <ListBox x:Name="listBox_Copy" HorizontalAlignment="Left" Height="102" Margin="269,273,0,0" VerticalAlignment="Top" Width="403" Foreground="#FF045D40" FontFamily="Lucida Sans Unicode" FontSize="16"/>
+        <Label x:Name="label_Copy" Content="Users:" HorizontalAlignment="Left" Margin="31,273,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="16" Foreground="#FF023A28" Width="233" Background="{x:Null}"/>
 
     </Grid>
 </Window>
