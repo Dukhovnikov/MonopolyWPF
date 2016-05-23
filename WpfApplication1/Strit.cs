@@ -9,14 +9,42 @@ namespace WpfApplication1
     public
     class Strit
     {
+        /// <summary>
+        /// Владелец
+        /// </summary>
         public UserData Owner
         {
             get; set;
         }
 
-        public int[] Rent { get; set; }
-        public int HouseValue;
+        public string StritName { get; }
+
+        /// <summary>
+        /// рента
+        /// </summary>
+        public int[] Rent { get; }
+        /// <summary>
+        /// количество домов
+        /// </summary>
+        public int HouseValue
+        {
+            get; set;
+        }
+        /// <summary>
+        /// находится ли в залоге
+        /// </summary>
         public bool IsLaid = false;
+
+        /// <summary>
+        /// цена за один дом
+        /// </summary>
         public int HousePrice { get; private set; }
+
+        public Strit()
+        {
+            StritName = "RND";
+            Rent = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+        }
     }
 }

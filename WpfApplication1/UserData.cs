@@ -18,9 +18,19 @@ namespace WpfApplication1
             return _socket.ToString();
         }
 
+        public int[] StritNum { get; set; }
+
         public List<Strit> StritList
         {
-            get;
+            get
+            {
+                var rez = new List<Strit>();
+                foreach(var a in StritNum)
+                {
+                    rez.Add(Strits.strits[a]);
+                }
+                return rez;
+            }
         }
     }
 }

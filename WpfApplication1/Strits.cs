@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace WpfApplication1
 {
-    public
+    public 
     class Strits
     {
-        List<Strit> strits;
+        public static List<Strit> strits;
 
         /// <summary>
         /// типа выбор по имени
@@ -27,5 +27,13 @@ namespace WpfApplication1
                 return re.ToList();
             }
         }
+
+        public Strits()
+        {
+            ///TODO: 
+            ///тут надо как то инициализировать все улицы в список strits
+        }
     }
+
+
 }
