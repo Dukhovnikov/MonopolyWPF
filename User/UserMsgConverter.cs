@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace User
 {
+
     class UserMsgConverter : IUserMessangConverter
     {
         ///Структура входящих запросов: Тип, значения
