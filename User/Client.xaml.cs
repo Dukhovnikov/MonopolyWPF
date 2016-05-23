@@ -109,7 +109,7 @@ namespace User
                 if ((user as UserMessanger).ServerIP != null)
                 {
                     MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
-                    user.ConnectToSRV(textBox1.Text);
+                    user.ConnectToSRV(textBox.Text);
                     Thread th = new Thread(user.ListenTCP);
                     Thread th2 = new Thread(user.ListenUDP);
                     Threads.Add(th);
@@ -134,6 +134,11 @@ namespace User
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             user.SendToSRV(textBox1.Text);
+        }
+
+        private void textBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            textBox.Text = "";
         }
     }
 }
