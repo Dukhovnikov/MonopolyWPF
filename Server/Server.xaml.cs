@@ -55,11 +55,13 @@ namespace Server
                 if (Strits.strits[arg2].Owner != null)
                 {
                     ///Списываем с плательщика и записываем владельцу
+                    Users[ID].reason = string.Format("Rent is {0}", Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]);
                     Users[ID].Deposit -= Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
+                    Strits.strits[arg2].Owner.reason = string.Format("Rent from user {0}, street {1}", Users[ID].UserName, Strits.strits[arg2]);
                     Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
                 }
                 else
-                    S1.SendTo(ID, SrvMsgConvertet.Create(new object[] { SrvMsgConvertet.OutMsgType.SystemMsg, "This strit hadn't owner!\nIt can be yours!" }));
+                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit hadn't owner!\nIt can be yours!" }));
 
             }
             catch (Exception ex)
@@ -84,17 +86,19 @@ namespace Server
                     {
                         //Закладываем
                         Strits.strits[arg2].IsLaid = true;
+                        Users[ID].reason = "Street was establish";
                         Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].StreetPrice / 2;
                     }
                     else
                     {
                         //Выкупаем
                         Strits.strits[arg2].IsLaid = true;
+                        Users[ID].reason = "Street was deestablish";
                         Strits.strits[arg2].Owner.Deposit += (int)(Strits.strits[arg2].StreetPrice / 1.8);
                     }
                 }
                 else
-                    S1.SendTo(ID, SrvMsgConvertet.Create(new object[] { SrvMsgConvertet.OutMsgType.SystemMsg, "This strit is not yours!" }));
+                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
 
             }
             catch (Exception ex)
@@ -121,12 +125,14 @@ namespace Server
         private void SrvMsgConvertet_DepositUpdate(byte ID, int arg2, string arg3)
         {
             //Спрашиваем легально ли это
-            if (MessageBox.Show(string.Format("User {0} wonna change balance to {1} ({2})\n The rison is: {3}", Users[ID].UserName, arg2, Users[ID].Deposit - arg2, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(string.Format("User {0} wonna change balance to {1} ({2})\n The rison is: {3}", Users[ID].UserName, arg2, arg2 - Users[ID].Deposit, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) { 
                 //Меняем баланс
-                Users[ID].Deposit = arg2;
+                Users[ID].reason = arg3;
+            Users[ID].Deposit = arg2; }
             else
                 //Посылаем нафиг
-                S1.SendTo(ID, SrvMsgConvertet.Create(new object[] { SrvMsgConvertet.OutMsgType.SystemMsg, "Access deny!" }));
+                S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
+                    SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Access deny!" }));
         }
 
         /// <summary>
@@ -158,17 +164,22 @@ namespace Server
                                 Good = false;
                         }
                     else
-                        S1.SendTo(ID, SrvMsgConvertet.Create(new object[] { SrvMsgConvertet.OutMsgType.SystemMsg, "Max house value!" }));
+                        S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
+                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Max house value!" }));
                     if (Good)
                     {
                         //Одобряем операцию
                         Strits.strits[arg2].HouseValue++;
+                        Users[ID].reason = string.Format("House was bought");
+                        Users[ID].Deposit -= Strits.strits[arg2].HousePrice;
                     }
                     else
-                        S1.SendTo(ID, SrvMsgConvertet.Create(new object[] { SrvMsgConvertet.OutMsgType.SystemMsg, "You can't build house here!" }));
+                        S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
+                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "You can't build house here!" }));
                 }
                 else
-                    S1.SendTo(ID, SrvMsgConvertet.Create(new object[] { SrvMsgConvertet.OutMsgType.SystemMsg, "This strit is not yours!" }));
+                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
+                        SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
             }
             catch (Exception ex)
             {
@@ -199,18 +210,19 @@ namespace Server
                 if (Strits.strits[arg2].Owner == null)
                 {
                     Strits.strits[arg2].Owner = Users[ID];
+                    Users[ID].reason = string.Format("Strit {0} was bought", Strits.strits[arg2]);
                     Users[ID].Deposit -= Strits.strits[arg2].StreetPrice;
-                    var a = Users[ID].StritNum.ToList();
+                    var a = Users[ID].StritNum != null ? Users[ID].StritNum.ToList() : new List<int>();
                     a.Add(arg2);
                     Users[ID].StritNum = a.ToArray();
                 }
                 else
                 {
-                    S1.SendTo(ID, SrvMsgConvertet.Create(new object[]
-                    { SrvMsgConvertet.OutMsgType.OtherOwner, Strits.strits[arg2].Owner.getSocket() }));
+                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[]
+                    {SrvMsgConvertet.OutMsgType.OtherOwner.GetHashCode().ToString(), Strits.strits[arg2].Owner.getSocket() }));
                 }
-            }  
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -232,14 +244,16 @@ namespace Server
                 if (Strits.strits[arg3].Owner == Users[ID1])
                 {
                     Users[ID1].StritNum = (Users[ID1].StritNum.ToList().Where((a) => a != arg3)).ToArray();
-                    var t= Users[ID1].StritNum.ToList();
+                    var t = Users[ID1].StritNum.ToList();
                     t.Add(arg3);
                     Users[ID2].StritNum = t.ToArray();
+                    Users[ID1].reason = string.Format("Strit {0} was sell", Strits.strits[arg3]);
+                    Users[ID2].reason = string.Format("Strit {0} was bought", Strits.strits[arg3]);
                     Users[ID1].Deposit += arg4;
                     Users[ID2].Deposit -= arg4;
                 }
                 else
-                    S1.SendTo(ID1, SrvMsgConvertet.Create(new object[] { SrvMsgConvertet.OutMsgType.SystemMsg, "This strit is not yours!" }));
+                    S1.SendTo(ID1, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
 
             }
             catch (Exception ex)
@@ -248,12 +262,30 @@ namespace Server
             }
         }
 
-        private void S1_ClientConnect(string obj)
+        private void S1_ClientConnect(string obj, System.Net.IPEndPoint ep)
         {
             Action Log = () => listBox.Items.Add(obj + " has been connected\n");
             Dispatcher.Invoke(Log);
             Action AddName = () => comboBox.Items.Add(obj);
             Dispatcher.Invoke(AddName);
+            Users.Add(new UserData(obj, ep));
+            Users.Last().OnDepositChange += ServerForm_OnDepositChange;
+            Users.Last().OnStritsChange += ServerForm_OnStritsChange;
+        }
+
+        private void ServerForm_OnDepositChange(UserData sender)
+        {
+            S1.SendTo(sender.UserName, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.DepositUpdate.GetHashCode().ToString(), sender.Deposit.ToString(), sender.reason }));
+        }
+
+        private void ServerForm_OnStritsChange(UserData sender)
+        {
+            string[] S = new string[] {
+                SrvMsgConvertet.OutMsgType.StritsUpdate.GetHashCode().ToString()};
+            var t = S.ToList();
+            foreach (var a in sender.StritNum)
+                t.Add(a.ToString());
+            S1.SendTo(sender.UserName, SrvMsgConvertet.Create(t.ToArray()));
         }
 
         private void S1_ClientDisconnect(string obj)

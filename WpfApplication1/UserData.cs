@@ -22,7 +22,19 @@ namespace WpfApplication1
         /// </summary>
         IPEndPoint _socket;
 
-        public int Deposit { get; set; }
+        int _deposit;
+        public int Deposit
+        {
+            get
+            {
+                return _deposit;
+            }
+            set
+            {
+                _deposit = value;
+                OnDepositChange();
+            }
+        }
 
         /// <summary>
         /// Получение адреса пользователя.
@@ -32,10 +44,22 @@ namespace WpfApplication1
             return _socket.ToString();
         }
 
+        int[] _strits;
         /// <summary>
         /// Улицы принадлежащие пользователю.
         /// </summary>
-        public int[] StritNum { get; set; }
+        public int[] StritNum
+        {
+            get
+            {
+                return _strits;
+            }
+            set
+            {
+                _strits = value;
+                OnStritsChange();
+            }
+        }
 
         /// <summary>
         /// Функция возращающая список улиц, купленных пользователем.
@@ -45,7 +69,7 @@ namespace WpfApplication1
             get
             {
                 var rez = new List<Strit>();
-                foreach(var a in StritNum)
+                foreach (var a in StritNum)
                 {
                     rez.Add(Strits.strits[a]);
                 }
@@ -61,5 +85,8 @@ namespace WpfApplication1
             this.UserName = UserName;
             this._socket = _socket;
         }
+
+        public event Action OnDepositChange;
+        public event Action OnStritsChange;
     }
 }

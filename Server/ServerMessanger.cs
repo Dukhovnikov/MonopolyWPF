@@ -35,7 +35,7 @@ namespace Server
 
         public event Action<string> ClientDisconnect;
         public event Action<string> NewMessage;
-        public event Action<string> UserConnected;
+        public event Action<string, IPEndPoint> UserConnected;
         public event Action<string> Error;
 
         /// <summary>
@@ -92,6 +92,16 @@ namespace Server
         }
 
         /// <summary>
+        /// Отправить по имени
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="msg"></param>
+        public void SendTo(string userName, string msg)
+        {
+            Clients.Where(a => a.Name == userName).ToArray()[0].Send(msg);
+        }
+
+        /// <summary>
         /// Запустить сервер
         /// </summary>
         public void StartSRV()
@@ -106,7 +116,7 @@ namespace Server
                     byte[] bufer = new byte[1024];
                     int size = temp.Receive(bufer);
                     Clients.Add(new Client(temp, Encoding.ASCII.GetString(bufer, 0, size)));
-                    UserConnected(Clients.Last().Name);
+                    UserConnected(Clients.Last().Name, (IPEndPoint)Clients.Last().MainSocket.RemoteEndPoint);
                     //подписываемся
                     Clients.Last().ClientDisconect += SRV_ClientDisconect;
                     Clients.Last().HaveMessage += _client_message;

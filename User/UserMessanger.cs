@@ -42,7 +42,7 @@ namespace User
             try
             {
                 SRV.Connect(ServerIP, ServerPort);
-                SRV.Send(Encoding.ASCII.GetBytes(yourNick));
+                SRV.Send(Encoding.UTF8.GetBytes(yourNick));
             }
             catch
             {
@@ -61,7 +61,7 @@ namespace User
                 Socket MySock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
                     ProtocolType.Udp);
                 IPEndPoint ipe = new IPEndPoint(IPAddress.Broadcast, ServerPort);
-                byte[] msg = Encoding.ASCII.GetBytes("1");
+                byte[] msg = Encoding.UTF8.GetBytes("1");
                 MySock.SetSocketOption(SocketOptionLevel.Socket,
                     SocketOptionName.Broadcast, 1);
                 MySock.SendTo(msg, ipe);
@@ -70,7 +70,7 @@ namespace User
                 byte[] data = new byte[1024];
                 MySock.ReceiveTimeout = 15;
                 int recv = MySock.ReceiveFrom(data, ref ep);
-                string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                string stringData = Encoding.UTF8.GetString(data, 0, recv);
                 //записываем адрес сервера
                 ServerIP = ((IPEndPoint)ep).Address;
                 SRV.Bind(MySock.LocalEndPoint);
@@ -95,7 +95,7 @@ namespace User
                 {
                     byte[] bufer = new byte[1024];
                     int bytesRec = SRV.Receive(bufer);
-                    NewMsg?.Invoke(Encoding.ASCII.GetString(bufer, 0, bytesRec));
+                    NewMsg?.Invoke(Encoding.UTF8.GetString(bufer, 0, bytesRec));
                 }
             }
             catch (Exception)
@@ -119,7 +119,7 @@ namespace User
                     //слушаем
                     byte[] data = new byte[1024];
                     int recv = UDP.ReceiveFrom(data, ref ep);
-                    string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                    string stringData = Encoding.UTF8.GetString(data, 0, recv);
                     NewMsg(stringData);
                 }
             }
@@ -137,7 +137,7 @@ namespace User
         {
             try
             {
-                byte[] bmsg = Encoding.ASCII.GetBytes(msg);
+                byte[] bmsg = Encoding.UTF8.GetBytes(msg);
                 SRV.Send(bmsg);
             }
             catch
@@ -154,7 +154,7 @@ namespace User
         public void UDPSend(string msg, string socket = null)
         {
 
-            byte[] byteMSG = Encoding.ASCII.GetBytes(msg);
+            byte[] byteMSG = Encoding.UTF8.GetBytes(msg);
             if (socket == null)
             {
                 UDP.SendTo(byteMSG, otherClient);

@@ -9,13 +9,14 @@ namespace Server
     public
     class SrvMsgConvertet
     {
-        public static string Create(object[] args)
+        public static string Create(string[] args)
         {
             string res = "";
             foreach (var s in args)
             {
                 res += s.ToString() + ':';
             }
+            res = res.Substring(0, res.Length - 1);
             return res;
         }
 

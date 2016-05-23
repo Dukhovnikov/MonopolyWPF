@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Server
 {
@@ -19,6 +20,7 @@ namespace Server
         List<string> Msgs { get; }
 
         void SendTo(byte ID, string msg);
+        void SendTo(string userName, string msg);
         void ListenAll();
         void StartSRV();
         void UDPShown();
@@ -34,7 +36,7 @@ namespace Server
         /// <summary>
         /// Событие, которое вызывается, когда пользователь пытается подключится к серверу.
         /// </summary>
-        event Action<string> UserConnected;
+        event Action<string, IPEndPoint> UserConnected;
 
     }
 }

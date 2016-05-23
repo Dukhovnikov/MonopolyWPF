@@ -80,6 +80,9 @@ namespace WpfApplication1
             HouseValue = 0;
         }
 
-        
+        public override string ToString()
+        {
+            return StritName;
+        }
     }
 }

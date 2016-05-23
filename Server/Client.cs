@@ -31,7 +31,7 @@ namespace Server
                     byte[] bufer = new byte[1024];
                     int bytesRec = MainSocket.Receive(bufer);
                     if (HaveMessage != null)
-                        HaveMessage(Encoding.ASCII.GetString(bufer, 0, bytesRec), this);
+                        HaveMessage(Encoding.UTF8.GetString(bufer, 0, bytesRec), this);
                 }
             }
             catch (Exception)
@@ -46,7 +46,7 @@ namespace Server
         /// </summary>
         public void Send(string msg)
         {
-            byte[] bufer = Encoding.ASCII.GetBytes(msg);
+            byte[] bufer = Encoding.UTF8.GetBytes(msg);
             MainSocket.Send(bufer);
         }
 
