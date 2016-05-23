@@ -19,6 +19,34 @@ namespace Server
             return res;
         }
 
+        public enum OutMsgType
+        {
+            /// <summary>
+            /// Системное сообщение.
+            /// </summary>
+            SystemMsg,
+            /// <summary>
+            /// Обновление баланса.
+            /// </summary>
+            DepositUpdate,
+            /// <summary>
+            /// Обновление недвижимости.
+            /// </summary>
+            StritsUpdate,
+            /// <summary>
+            /// Запрос на покупку.
+            /// </summary>
+            AskSelling,
+            /// <summary>
+            /// Начат аукцион.
+            /// </summary>
+            AuctionStart,
+            /// <summary>
+            /// Запрошенная улица имеет другого владельца.
+            /// </summary>
+            OtherOwner
+        }
+
         /// <summary>
         /// Типа исходящих сообщений.
         /// </summary>
