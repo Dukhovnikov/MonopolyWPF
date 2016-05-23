@@ -5,23 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="Monopoly" Height="223.045" Width="375.752"
+        Title="Monopoly" Height="223.045" Width="375.753"
         Closed="Window_Closed" Icon="favicon.ico">
 
-    <Grid Margin="0,0,-3,0">
+    <Grid Margin="0,0,-8,0" HorizontalAlignment="Left" Width="386">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFE4F5F0" Offset="0.419"/>
+                <GradientStop Color="#FFE4F5F0" Offset="0.502"/>
                 <GradientStop Color="#FF299170" Offset="1"/>
-                <GradientStop Color="#FFB4ECDB" Offset="0.008"/>
+                <GradientStop Color="#FFC8F0E3" Offset="0.012"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="button" Content="New User" Margin="200,135,0,30" Width="100" Click="button_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="27"/>
-        <Button x:Name="button1" Content="New Server" Margin="51,135,0,30" Width="100" Click="button1_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="27" >
-            <Button.BorderBrush>
-                <ImageBrush/>
-            </Button.BorderBrush>
-        </Button>
+        <Button x:Name="button" Content="New User" Margin="200,135,0,30" Width="100" Click="button_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="29" Foreground="#FF03493A" FontSize="16" Background="{x:Null}" IsCancel="True" IsDefault="True" BorderThickness="1" BorderBrush="#FF31493A"/>
+        <Button x:Name="button1" Content="New Server" Margin="51,135,0,30" Width="100" Click="button1_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="29" Foreground="#FF03493A" FontSize="16" Background="{x:Null}" IsCancel="True" IsDefault="True" BorderThickness="1" BorderBrush="#FF31493A" />
+        <Label x:Name="label" Content="Hello friend!" Margin="112,0,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" FontWeight="Bold" HorizontalAlignment="Left" Background="{x:Null}" Foreground="#FF03493A"/>
+        <Label x:Name="label1" Content="Welcome to the game &quot;MONOPOLY&quot;. To start &#xD;&#xA;  playing, you need to connect to the server &#xD;&#xA;&#x9;        and add users." HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Lucida Sans Unicode" Width="366" Height="87" Background="{x:Null}" Foreground="#FF03493A"/>
 
     </Grid>
 </Window>

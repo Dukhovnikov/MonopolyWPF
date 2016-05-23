@@ -17,20 +17,19 @@
 
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="206" Margin="216,174,0,0" VerticalAlignment="Top" Width="150" />
-        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="178" Margin="32,202,0,0" VerticalAlignment="Top" Width="150"/>
-        <Label x:Name="label" Content="Transactions" HorizontalAlignment="Center" Margin="56,162,348,0" VerticalAlignment="Top" Width="114" FontSize="16" FontFamily="Lucida Sans Unicode" ToolTip="History of your transactions" RenderTransformOrigin="0.533,0.561"/>
+        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="178" Margin="12,202,0,0" VerticalAlignment="Top" Width="188"/>
+        <Label x:Name="label" Content="History of transactions" HorizontalAlignment="Center" Margin="12,162,322,0" VerticalAlignment="Top" Width="188" FontSize="16" FontFamily="Lucida Sans Unicode" ToolTip="History of your transactions" RenderTransformOrigin="0.533,0.561" Foreground="#FF295E4E"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="29" Margin="119,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" GotFocus="textBox_GotFocus" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Please! Enter your name" UndoLimit="20"/>
         <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="28" Margin="12,396,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384" GotFocus="textBox1_GotFocus" FontFamily="Lucida Sans Unicode" ToolTip="Please! Enter your message" UndoLimit="50" FontSize="14.667"/>
-        <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="320,90,0,0" VerticalAlignment="Top" Width="100" Click="button_Click" ToolTip="Click here to find server." FontFamily="Lucida Sans Unicode" FontSize="16" OpacityMask="#FF045744" >
+        <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="320,90,0,0" VerticalAlignment="Top" Width="100" Click="button_Click" ToolTip="Click here to find server." FontFamily="Lucida Sans Unicode" FontSize="16" OpacityMask="#FF045744" BorderBrush="#FF295E4E" >
             <Button.Background>
                 <ImageBrush/>
             </Button.Background>
         </Button>
-        <Button x:Name="button1" Content="Send " HorizontalAlignment="Left" Margin="407,396,0,0" VerticalAlignment="Top" Width="100" Click="button1_Click" Height="29" ToolTip="Click here to send your message" FontSize="16" FontFamily="Lucida Sans"/>
-        <Button x:Name="button2" Content="Transaction" HorizontalAlignment="Left" Margin="407,352,0,0" VerticalAlignment="Top" Width="100" Click="button2_Click" ToolTip="Click here to complete the transaktions" FontSize="16" FontFamily="Lucida Sans Unicode"/>
-        <Label x:Name="label1" Content="  Enter your username and click &quot;Connect&quot; to start the game" HorizontalAlignment="Left" Margin="12,51,0,0" VerticalAlignment="Top" Height="34" FontFamily="Lucida Sans Unicode" FontSize="16" Width="495"/>
-        <Label x:Name="label2" Content="Welcome to your pesonal office of &quot;Monopoly&quot;" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" FontWeight="Bold" Width="502"/>
+        <Button x:Name="button1" Content="Send " HorizontalAlignment="Left" Margin="407,396,0,0" VerticalAlignment="Top" Width="100" Click="button1_Click" Height="29" ToolTip="Click here to send your message" FontSize="16" FontFamily="Lucida Sans" Background="{x:Null}" BorderBrush="#FF295E4E" Foreground="#FF11382C"/>
+        <Button x:Name="button2" Content="Transaction" HorizontalAlignment="Left" Margin="407,352,0,0" VerticalAlignment="Top" Width="100" Click="button2_Click" ToolTip="Click here to complete the transaktions" FontSize="16" FontFamily="Lucida Sans Unicode" Background="{x:Null}" BorderBrush="#FF295E4E" Foreground="#FF11382C"/>
+        <Label x:Name="label1" Content="  Enter your username and click &quot;Connect&quot; to start the game" HorizontalAlignment="Left" Margin="12,51,0,0" VerticalAlignment="Top" Height="34" FontFamily="Lucida Sans Unicode" FontSize="16" Width="495" Foreground="#FF295E4E"/>
+        <Label x:Name="label2" Content="Welcome to your pesonal office of &quot;Monopoly&quot;" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" FontWeight="Bold" Width="502" Foreground="#FF11382C"/>
 
     </Grid>
 
