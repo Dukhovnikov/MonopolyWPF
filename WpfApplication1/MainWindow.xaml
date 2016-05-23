@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="Monopoly" Height="170" Width="200"
+        Title="Monopoly" Height="223.045" Width="375.752"
         Closed="Window_Closed" Icon="favicon.ico">
 
     <Grid Margin="0,0,-3,0">
@@ -16,8 +16,8 @@
                 <GradientStop Color="#FFB4ECDB" Offset="0.008"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="button" Content="New User" Margin="43,82,0,21" Width="100" Click="button_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="27"/>
-        <Button x:Name="button1" Content="New Server" Margin="43,31,0,72" Width="100" Click="button1_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="27" >
+        <Button x:Name="button" Content="New User" Margin="200,135,0,30" Width="100" Click="button_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="27"/>
+        <Button x:Name="button1" Content="New Server" Margin="51,135,0,30" Width="100" Click="button1_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="27" >
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
