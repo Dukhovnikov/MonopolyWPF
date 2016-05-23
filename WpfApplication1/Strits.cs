@@ -11,7 +11,7 @@ namespace WpfApplication1
     {
         public static List<Strit> strits = new List<Strit>
         {
-            new Strit(),
+            new Strit("Название улицы", 5200, new int[6] {0,0,0,0,0,0}),
             new Strit(),
         };
 

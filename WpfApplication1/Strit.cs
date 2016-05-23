@@ -10,41 +10,53 @@ namespace WpfApplication1
     class Strit
     {
         /// <summary>
-        /// Владелец
+        /// Владелец.
         /// </summary>
         public UserData Owner
         {
             get; set;
         }
 
+        /// <summary>
+        /// Название улиццы.
+        /// </summary>
         public string StritName { get; }
 
         /// <summary>
-        /// рента
+        /// Рента.
         /// </summary>
         public int[] Rent { get; }
-        /// <summary>
-        /// количество домов
-        /// </summary>
-        public int HouseValue
-        {
-            get; set;
-        }
-        /// <summary>
-        /// находится ли в залоге
-        /// </summary>
-        public bool IsLaid = false;
 
         /// <summary>
-        /// цена за один дом
+        /// Количество домов.
+        /// </summary>
+        public byte HouseValue { get; set; }
+
+        /// <summary>
+        /// Находится ли в залоге.
+        /// </summary>
+        public bool IsLaid { get; set; }
+
+        /// <summary>
+        /// Цена за один дом.
         /// </summary>
         public int HousePrice { get; private set; }
 
-        public Strit()
+        /// <summary>
+        /// Конструктор, инициализирующий улицу.
+        /// </summary>
+        /// <param name="StritName">Название улицы</param>
+        /// <param name="HousePrice">Цена за один дом</param>
+        /// <param name="Rent">Рента</param>
+        public Strit(string StritName, int HousePrice, int[] Rent)
         {
-            StritName = "RND";
-            Rent = new int[6] { 0, 0, 0, 0, 0, 0 };
-
+            this.StritName = StritName;
+            this.HousePrice = HousePrice;
+            this.Rent = Rent;
+            IsLaid = false;
+            HouseValue = 0;
         }
+
+        
     }
 }
