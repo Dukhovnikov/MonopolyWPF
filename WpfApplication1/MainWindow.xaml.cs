@@ -17,40 +17,22 @@ namespace WpfApplication1
         private void button_Click(object sender, RoutedEventArgs e)
         {
             var form = new User.UserForm();
-            //Thread th = new Thread(() =>
-            //{
-            //    form.ShowDialog();
-            //});
-            //th.Start();
-            Dispatcher.Invoke(() => 
+            Thread th = new Thread(() =>
             {
-                Thread th = new Thread(() =>
-                {
-                    form.ShowDialog();
-                });
-                th.Start();
+                Dispatcher.Invoke(() => { form.Show();  });
             });
+            th.Start();
             
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             var form = new Server.ServerForm();
-            //Thread th = new Thread(() =>
-            //{
-            //    form.ShowDialog();
-            //});
-            //th.Start();
-            // Dispatcher.Invoke(() => { form.ShowDialog(); this.Show(); });
-            Dispatcher.Invoke(() =>
+            Thread th = new Thread(() =>
             {
-                Thread th = new Thread(() =>
-                {
-                    form.ShowDialog();
-                });
-                th.Start();
+                Dispatcher.Invoke(() => { form.Show(); });
             });
-
+            th.Start();
         }
 
         private void Window_Closed(object sender, EventArgs e)
