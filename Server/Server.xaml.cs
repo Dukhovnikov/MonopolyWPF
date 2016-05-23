@@ -43,7 +43,7 @@ namespace Server
 
         private void SrvMsgConvertet_Rent(byte ID, byte arg2)
         {
-            throw new NotImplementedException();
+            Users[ID].
         }
 
         private void SrvMsgConvertet_establish(byte ID, byte arg2)
