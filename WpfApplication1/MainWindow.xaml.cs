@@ -36,6 +36,10 @@ namespace WpfApplication1
             Dispatcher.Invoke(() => { form.ShowDialog(); });
         }
 
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
 
     }
 }
