@@ -31,6 +31,54 @@ namespace Server
             S1.NewMessage += S1_NewMessage;
             S1.ClientDisconnect += S1_ClientDisconnect;
             S1.UserConnected += S1_ClientConnect;
+            SrvMsgConvertet.acceptDeal += SrvMsgConvertet_acceptDeal;
+            SrvMsgConvertet.AskSelling += SrvMsgConvertet_AskSelling;
+            SrvMsgConvertet.Auction += SrvMsgConvertet_Auction;
+            SrvMsgConvertet.BayHouse += SrvMsgConvertet_BayHouse;
+            SrvMsgConvertet.DepositUpdate += SrvMsgConvertet_DepositUpdate;
+            SrvMsgConvertet.Error += SrvMsgConvertet_Error;
+            SrvMsgConvertet.establish += SrvMsgConvertet_establish;
+            SrvMsgConvertet.Rent += SrvMsgConvertet_Rent;
+        }
+
+        private void SrvMsgConvertet_Rent(byte ID, byte arg2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SrvMsgConvertet_establish(byte ID, byte arg2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SrvMsgConvertet_Error(string obj)
+        {
+            MessageBox.Show(obj);
+        }
+
+        private void SrvMsgConvertet_DepositUpdate(byte ID, int arg2, string arg3)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SrvMsgConvertet_BayHouse(byte ID, byte arg2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SrvMsgConvertet_Auction(byte ID, int arg2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SrvMsgConvertet_AskSelling(byte ID, byte arg2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SrvMsgConvertet_acceptDeal(byte ID, byte arg2, byte arg3, int arg4)
+        {
+            throw new NotImplementedException();
         }
 
         private void S1_ClientConnect(string obj)

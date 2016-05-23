@@ -100,28 +100,28 @@ namespace Server
             try
             {
                 string[] Args = msg.Split(':');
-                switch (byte.Parse(Args[0]))
+                switch (byte.Parse(Args[1]))
                 {
                     case ((byte)InMsgType.acceptDeal):
-                        acceptDeal(byte.Parse(Args[1]), byte.Parse(Args[2]), byte.Parse(Args[3]), int.Parse(Args[4]));
+                        acceptDeal(byte.Parse(Args[0]), byte.Parse(Args[2]), byte.Parse(Args[3]), int.Parse(Args[4]));
                         break;
                     case ((byte)InMsgType.AskSelling):
-                        AskSelling(byte.Parse(Args[1]), byte.Parse(Args[2]));
+                        AskSelling(byte.Parse(Args[0]), byte.Parse(Args[2]));
                         break;
                     case ((byte)InMsgType.Auction):
-                        Auction(byte.Parse(Args[1]), int.Parse(Args[2]));
+                        Auction(byte.Parse(Args[0]), int.Parse(Args[2]));
                         break;
                     case ((byte)InMsgType.DepositUpdate):
-                        DepositUpdate(byte.Parse(Args[1]), int.Parse(Args[2]), Args[3]);
+                        DepositUpdate(byte.Parse(Args[0]), int.Parse(Args[2]), Args[3]);
                         break;
                     case ((byte)InMsgType.establish):
-                        establish(byte.Parse(Args[1]), byte.Parse(Args[2]));
+                        establish(byte.Parse(Args[0]), byte.Parse(Args[2]));
                         break;
                     case ((byte)InMsgType.Rent):
-                        Rent(byte.Parse(Args[1]), byte.Parse(Args[2]));
+                        Rent(byte.Parse(Args[0]), byte.Parse(Args[2]));
                         break;
                     case ((byte)InMsgType.BayHouse):
-                        BayHouse(byte.Parse(Args[1]), byte.Parse(Args[2]));
+                        BayHouse(byte.Parse(Args[0]), byte.Parse(Args[2]));
                         break;
                     default:
                         throw new Exception("Не известный тип входящего сообщения");

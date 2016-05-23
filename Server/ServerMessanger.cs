@@ -76,7 +76,7 @@ namespace Server
             if (msg != null)
             {
                 Msgs.Add(msg);
-                NewMessage?.Invoke(Clients.IndexOf(sender) + ':' + msg);
+                NewMessage?.Invoke(Clients.IndexOf(sender) + ":" + msg);
             }
         }
         #endregion
