@@ -17,6 +17,10 @@ namespace WpfApplication1
             get; set;
         }
 
+        /// <summary>
+        /// ewewe
+        /// </summary>
+
         public string StritName { get; }
 
         /// <summary>
