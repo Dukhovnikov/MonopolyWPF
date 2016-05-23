@@ -22,6 +22,8 @@ namespace WpfApplication1
         /// </summary>
         IPEndPoint _socket;
 
+        public int Deposit { get; set; }
+
         /// <summary>
         /// Получение адреса пользователя.
         /// </summary>

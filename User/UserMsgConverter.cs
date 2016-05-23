@@ -154,7 +154,7 @@ namespace User
                         AuctionStart(byte.Parse(Args[1]));
                         break;
                     case ((byte)InMsgType.OtherOwner):
-                        OwnerEP(Args[1] + ':' + Args[2]);
+                        OwnerEP(Args[1] + ":" + Args[2]);
                         break;
                     default:
                         throw new Exception("Не известный тип входящего сообщения");
