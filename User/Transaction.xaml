@@ -7,10 +7,18 @@
         mc:Ignorable="d"
         Title="Transaction" Height="165.764" Width="350.67">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="10,41,0,0" TextWrapping="Wrap" Text="How much you spend?" VerticalAlignment="Top" Width="154" GotFocus="textBox_GotFocus"/>
-        <Button x:Name="button" Content="Done" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="74" Click="button_Click"/>
-        <Button x:Name="button1" Content="Cancel" HorizontalAlignment="Left" Margin="90,68,0,0" VerticalAlignment="Top" Width="74" Click="button1_Click"/>
-        <Label x:Name="label" Content="Данная улица пренадлежит игроку " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFE4F5F0" Offset="0.419"/>
+                <GradientStop Color="#FF299170" Offset="1"/>
+                <GradientStop Color="#FFB4ECDA" Offset="0.008"/>
+
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="10,50,0,0" TextWrapping="Wrap" Text="Слышь, сколько у тебя есть?" VerticalAlignment="Top" Width="312" GotFocus="textBox_GotFocus" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center" TextChanged="textBox_TextChanged"/>
+        <Button x:Name="button" Content="ОК" HorizontalAlignment="Left" Margin="96,98,0,0" VerticalAlignment="Top" Width="74" Click="button_Click" Foreground="#FF023520" Background="{x:Null}" FontSize="16" FontFamily="Lucida Sans Unicode" BorderBrush="#FF023520"/>
+        <Button x:Name="button1" Content="Отмена" HorizontalAlignment="Left" Margin="176,98,0,0" VerticalAlignment="Top" Width="74" Click="button1_Click" Foreground="#FF023520" Background="{x:Null}" FontSize="16" FontFamily="Lucida Sans Unicode" BorderBrush="#FF023520"/>
+        <Label x:Name="label" Content="Данная улица пренадлежит игроку " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="312" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>

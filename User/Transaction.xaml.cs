@@ -49,5 +49,10 @@ namespace User
         {
             user.UDPSend("5:" + textBox.Text+":"+user, OtherUser);
         }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

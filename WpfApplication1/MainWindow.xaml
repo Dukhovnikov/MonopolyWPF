@@ -20,10 +20,10 @@
                 <GradientStop Color="#FFC8F0E3" Offset="0.012"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="button" Content="New User" Margin="200,134,0,29" Width="100" Click="button_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="29" Foreground="#FF03493A" FontSize="16" Background="{x:Null}" BorderThickness="1" BorderBrush="#FF31493A" Grid.ColumnSpan="2"/>
-        <Button x:Name="button1" Content="New Server" Margin="51,134,0,29" Width="100" Click="button1_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="29" Foreground="#FF03493A" FontSize="16" Background="{x:Null}" BorderThickness="1" BorderBrush="#FF31493A" />
-        <Label x:Name="label" Content="Hello friend!" Margin="112,0,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" FontWeight="Bold" HorizontalAlignment="Left" Background="{x:Null}" Foreground="#FF03493A" Grid.ColumnSpan="2" Width="148"/>
-        <Label x:Name="label1" Content="Welcome to the game &quot;MONOPOLY&quot;. To start &#xD;&#xA;  playing, you need to connect to the server &#xD;&#xA;&#x9;        and add users." HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Lucida Sans Unicode" Width="357" Height="87" Background="{x:Null}" Foreground="#FF03493A" Grid.ColumnSpan="2"/>
+        <Button x:Name="button" Content="Новый игрок" Margin="193,143,0,20" Width="161" Click="button_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="29" Foreground="#FF03493A" FontSize="16" Background="{x:Null}" BorderThickness="1" BorderBrush="#FF31493A" Grid.ColumnSpan="2"/>
+        <Button x:Name="button1" Content="Новый сервер" Margin="15,143,0,20" Width="160" Click="button1_Click" FontFamily="Lucida Sans Unicode" VerticalAlignment="Center" HorizontalAlignment="Left" Height="29" Foreground="#FF03493A" FontSize="16" Background="{x:Null}" BorderThickness="1" BorderBrush="#FF31493A" />
+        <Label x:Name="label" Content="Привет, Друг!" Margin="15,0,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" FontWeight="Bold" HorizontalAlignment="Left" Background="{x:Null}" Foreground="#FF03493A" Grid.ColumnSpan="2" Width="339" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label1" Content="Добро пожаловать в игру &quot;Монополия&quot;! &#xD;&#xA; Перед началом игры Вам необходимо &#xD;&#xA;подключить сервер и добавить игроков." HorizontalAlignment="Center" Margin="15,48,9.667,0" VerticalAlignment="Top" FontSize="16" FontFamily="Lucida Sans Unicode" Width="342" Height="82" Background="{x:Null}" Foreground="#FF03493A" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
     </Grid>
 </Window>

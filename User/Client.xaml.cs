@@ -162,7 +162,7 @@ namespace User
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            user.SendToSRV(textBox1.Text);
+            //user.SendToSRV(textBox1.Text);
         }
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
