@@ -16,11 +16,13 @@ using System.Threading;
 
 namespace User
 {
+    
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class UserForm : Window
     {
+        
         IUserMessanger user = new UserMessanger();
         IUserMessangConverter userConvert = new UserMsgConverter();
         List<Thread> Threads = new List<Thread>(3);
@@ -77,16 +79,38 @@ namespace User
                 //тут надо написать отрпавку сообщения о продаже серверу
                 MessageBox.Show("продано!");
         }
-
+        [STAThread]
         private void UserConvert_OwnerEP(string obj)
         {
+            //var form = new Transaction(user, UserName, obj);
+            //Thread th = new Thread(form.ShowDialog())
+            //{
+            //    //Dispatcher.Invoke(() => { form.ShowDialog(); });
+            //    form.ShowDialog();
+            //});
+
+
+
+
+
             //var form = new Transaction(user ,UserName, obj);
             //form.ShowDialog();
 
-            
-            Thread th = new Thread(() => { var form = new Transaction(user, UserName, obj); Dispatcher.Invoke(() => { form.Show(); }); });
+            var form = new Transaction(user, UserName, obj);
+            Thread th = new Thread(() =>
+            {
+                //Dispatcher.Invoke(() => { form.ShowDialog(); });
+                form.ShowDialog();
+            });
+            th.TrySetApartmentState(ApartmentState.STA);
             th.Start();
+
             //throw new NotImplementedException();
+
+
+
+            //var form = new Transaction(user, UserName, obj);
+            //form.Dispatcher.BeginInvoke(() => form.ShowDialog());
         }
 
         private void UserConvert_AuctionStart(byte obj)
