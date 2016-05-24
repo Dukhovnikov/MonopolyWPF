@@ -70,8 +70,8 @@ namespace User
 
         private void UserConvert_OwnerEP(string obj)
         {
-            var form = new Transaction(user);
-            form.ShowDialog();
+            //var form = new Transaction(user);
+            //form.ShowDialog();
 
             throw new NotImplementedException();
         }
