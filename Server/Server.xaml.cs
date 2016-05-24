@@ -55,9 +55,9 @@ namespace Server
                 if (Strits.strits[arg2].Owner != null)
                 {
                     ///Списываем с плательщика и записываем владельцу
-                    Users[ID].reason = string.Format("Rent is {0}", Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]);
+                    Users[ID].reason = string.Format("Рента составляет {0}", Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]);
                     Users[ID].Deposit -= Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
-                    Strits.strits[arg2].Owner.reason = string.Format("Rent from user {0}, street {1}", Users[ID].UserName, Strits.strits[arg2]);
+                    Strits.strits[arg2].Owner.reason = string.Format("Рента от игрока {0}, улица {1}", Users[ID].UserName, Strits.strits[arg2]);
                     Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
                 }
                 else
@@ -86,14 +86,14 @@ namespace Server
                     {
                         //Закладываем
                         Strits.strits[arg2].IsLaid = true;
-                        Users[ID].reason = "Street was establish";
+                        Users[ID].reason = "Улица заложена";
                         Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].StreetPrice / 2;
                     }
                     else
                     {
                         //Выкупаем
                         Strits.strits[arg2].IsLaid = true;
-                        Users[ID].reason = "Street was deestablish";
+                        Users[ID].reason = "Улица выкуплена";
                         Strits.strits[arg2].Owner.Deposit += (int)(Strits.strits[arg2].StreetPrice / 1.8);
                     }
                 }
@@ -125,14 +125,14 @@ namespace Server
         private void SrvMsgConvertet_DepositUpdate(byte ID, int arg2, string arg3)
         {
             //Спрашиваем легально ли это
-            if (MessageBox.Show(string.Format("User {0} wonna change balance to {1} ({2})\n The rison is: {3}", Users[ID].UserName, arg2, arg2 - Users[ID].Deposit, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) { 
+            if (MessageBox.Show(string.Format("Игрок {0} хочет изменить баланс {1} ({2})\n По причине: {3}", Users[ID].UserName, arg2, arg2 - Users[ID].Deposit, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) { 
                 //Меняем баланс
                 Users[ID].reason = arg3;
             Users[ID].Deposit = arg2; }
             else
                 //Посылаем нафиг
                 S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                    SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Access deny!" }));
+                    SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "У Вас нет доступа!" }));
         }
 
         /// <summary>
@@ -152,14 +152,14 @@ namespace Server
                                     where str.Type == Strits.strits[arg2].Type
                                     select str).ToList();
                     bool Good = true;
-                    //ну для начала проверим на максимум
+                    //Проверим на максимум
                     if (Strits.strits[arg2].HouseValue < 5)
                         foreach (var a in OneColor)
                         {
-                            //Проверяем чтоб все улицы принадлежали игроку
+                            //Проверяем: все ли улицы принадлежат игроку
                             if (a.Owner != Users[ID])
                                 Good = false;
-                            //Проверяем чтоб на всех удицах было домов не меньше чем на данной
+                            //Проверяем: Количество домов на всех улицах не меньше чем на данной
                             if (a.HouseValue < Strits.strits[arg2].HouseValue)
                                 Good = false;
                         }
@@ -170,16 +170,16 @@ namespace Server
                     {
                         //Одобряем операцию
                         Strits.strits[arg2].HouseValue++;
-                        Users[ID].reason = string.Format("House was bought");
+                        Users[ID].reason = string.Format("Дом куплен");
                         Users[ID].Deposit -= Strits.strits[arg2].HousePrice;
                     }
                     else
                         S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "You can't build house here!" }));
+                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Вы не можете построить здесь дом!" }));
                 }
                 else
                     S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                        SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
+                        SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта недвижимость не принадлежит Вам!" }));
             }
             catch (Exception ex)
             {
@@ -210,7 +210,7 @@ namespace Server
                 if (Strits.strits[arg2].Owner == null)
                 {
                     Strits.strits[arg2].Owner = Users[ID];
-                    Users[ID].reason = string.Format("Strit {0} was bought", Strits.strits[arg2]);
+                    Users[ID].reason = string.Format("Улица {0} куплена", Strits.strits[arg2]);
                     Users[ID].Deposit -= Strits.strits[arg2].StreetPrice;
                     var a = Users[ID].StritNum != null ? Users[ID].StritNum.ToList() : new List<int>();
                     a.Add(arg2);
@@ -240,15 +240,15 @@ namespace Server
 
             try
             {
-                ///проверяем свою ли улицу решил заложить
+                ///Проверяем: свою ли улицу решил заложить
                 if (Strits.strits[arg3].Owner == Users[ID1])
                 {
                     Users[ID1].StritNum = (Users[ID1].StritNum.ToList().Where((a) => a != arg3)).ToArray();
                     var t = Users[ID1].StritNum.ToList();
                     t.Add(arg3);
                     Users[ID2].StritNum = t.ToArray();
-                    Users[ID1].reason = string.Format("Strit {0} was sell", Strits.strits[arg3]);
-                    Users[ID2].reason = string.Format("Strit {0} was bought", Strits.strits[arg3]);
+                    Users[ID1].reason = string.Format("Улица {0} продана", Strits.strits[arg3]);
+                    Users[ID2].reason = string.Format("Улица {0} куплена", Strits.strits[arg3]);
                     Users[ID1].Deposit += arg4;
                     Users[ID2].Deposit -= arg4;
                 }
@@ -264,7 +264,7 @@ namespace Server
 
         private void S1_ClientConnect(string obj, System.Net.IPEndPoint ep)
         {
-            Action Log = () => listBox.Items.Add(obj + " has been connected\n");
+            Action Log = () => listBox.Items.Add(obj + " подключен\n");
             Dispatcher.Invoke(Log);
             Action AddName = () => comboBox.Items.Add(obj);
             Dispatcher.Invoke(AddName);
@@ -290,10 +290,10 @@ namespace Server
 
         private void S1_ClientDisconnect(string obj)
         {
-            MessageBox.Show(string.Format("User {0} has been disconected", obj));
-            Action Log = () => listBox.Items.Add(obj + " has been disconnected\n");
+            MessageBox.Show(string.Format("Игрок {0} отсоединился", obj));
+            Action Log = () => listBox.Items.Add(obj + " отсоединен \n");
             Dispatcher.Invoke(Log);
-            Action Clear = () => comboBox.Items.Remove("User " + obj);
+            Action Clear = () => comboBox.Items.Remove("Игрок " + obj);
             Dispatcher.Invoke(Clear);
         }
 
@@ -301,21 +301,21 @@ namespace Server
         {
             Action Log = () => listBox.Items.Add(obj);
             Dispatcher.Invoke(Log);
-            //тут обработка сообщения
+            //Обработка сообщения
             SrvMsgConvertet.Parse(obj);
 
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            listBox.Items.Add("Server is ready!\n waiting users");
+            listBox.Items.Add("Сервер включен!\n Ждем подключения игроов...");
             new Thread(S1.UDPShown).Start();
             new Thread(S1.StartSRV).Start();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            listBox.Items.Add("Start game");
+            listBox.Items.Add("Игра началась");
             S1.ListenAll();
         }
 
