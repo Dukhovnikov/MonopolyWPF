@@ -82,35 +82,9 @@ namespace User
         [STAThread]
         private void UserConvert_OwnerEP(string obj)
         {
-            //var form = new Transaction(user, UserName, obj);
-            //Thread th = new Thread(form.ShowDialog())
-            //{
-            //    //Dispatcher.Invoke(() => { form.ShowDialog(); });
-            //    form.ShowDialog();
-            //});
-
-
-
-
-
-            //var form = new Transaction(user ,UserName, obj);
-            //form.ShowDialog();
-
-            var form = new Transaction(user, UserName, obj);
-            Thread th = new Thread(() =>
-            {
-                //Dispatcher.Invoke(() => { form.ShowDialog(); });
-                form.ShowDialog();
-            });
-            th.TrySetApartmentState(ApartmentState.STA);
+            Thread th = new Thread((() => { var form = new Transaction(user, UserName, obj); form.ShowDialog(); form.Close(); }));
+            th.SetApartmentState(ApartmentState.STA);
             th.Start();
-
-            //throw new NotImplementedException();
-
-
-
-            //var form = new Transaction(user, UserName, obj);
-            //form.Dispatcher.BeginInvoke(() => form.ShowDialog());
         }
 
         private void UserConvert_AuctionStart(byte obj)
