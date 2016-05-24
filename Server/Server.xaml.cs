@@ -24,7 +24,7 @@ namespace Server
     public partial class ServerForm : Window
     {
         IServerMessanger S1 = new ServerMessanger();
-        List<WpfApplication1.UserData> Users = new List<WpfApplication1.UserData>(8);
+        public static List<WpfApplication1.UserData> Users = new List<WpfApplication1.UserData>(8);
 
         Action<string> Log;
 
@@ -293,7 +293,7 @@ namespace Server
             Action AddName = () => comboBox.Items.Add(obj);
             Dispatcher.Invoke(AddName);
             Users.Add(new UserData(obj, ep));
-            Action AddName2 = () => listBox_Copy.Items.Add(this.Users.Last());
+            Action AddName2 = () => listBox_Copy.Items.Add(Users.Last());
             Dispatcher.Invoke(AddName2);
             Users.Last().OnDepositChange += ServerForm_OnDepositChange;
             Users.Last().OnStritsChange += ServerForm_OnStritsChange;

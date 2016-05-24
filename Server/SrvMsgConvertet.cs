@@ -132,7 +132,8 @@ namespace Server
                 switch (byte.Parse(Args[1]))
                 {
                     case ((byte)InMsgType.acceptDeal):
-                        acceptDeal(byte.Parse(Args[0]), byte.Parse(Args[2]), byte.Parse(Args[3]), int.Parse(Args[4]));
+                        byte c = (byte)ServerForm.Users.IndexOf(ServerForm.Users.Where((a) => a.UserName == Args[2]).ToArray()[0]);
+                        acceptDeal(byte.Parse(Args[0]), c, byte.Parse(Args[3]), int.Parse(Args[4]));
                         break;
                     case ((byte)InMsgType.AskSelling):
                         AskSelling(byte.Parse(Args[0]), byte.Parse(Args[2]));

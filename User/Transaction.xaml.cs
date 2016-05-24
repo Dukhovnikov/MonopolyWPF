@@ -22,18 +22,20 @@ namespace User
         string username;
         string OtherUser;
         IUserMessanger user;
+        byte strit;
         public Transaction()
         {
             InitializeComponent();
 
         }
 
-        public Transaction(IUserMessanger user ,string username, string OtherUser)
+        public Transaction(IUserMessanger user, string username, string OtherUser, byte strit)
         {
             InitializeComponent();
             this.user = user;
             this.OtherUser = OtherUser;
             this.username = username;
+            this.strit = strit;
         }
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -47,7 +49,7 @@ namespace User
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            user.UDPSend("5:" + textBox.Text+":"+user, OtherUser);
+            user.UDPSend("3:" + textBox.Text + ":" + strit + ":" + username, OtherUser);
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)

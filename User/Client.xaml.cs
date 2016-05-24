@@ -16,13 +16,13 @@ using System.Threading;
 
 namespace User
 {
-    
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class UserForm : Window
     {
-        
+
         IUserMessanger user = new UserMessanger();
         IUserMessangConverter userConvert = new UserMsgConverter();
         List<Thread> Threads = new List<Thread>(3);
@@ -75,42 +75,22 @@ namespace User
 
         private void UserConvert_SellStrit(int arg1, byte arg2, string arg3)
         {
-            if (MessageBox.Show(string.Format(" Предложение от: {0}\n Предложенная цена: {1}\n За улицу: {2}", arg3, arg1, arg2), "Предложена сделака:", MessageBoxButton.OKCancel, MessageBoxImage.Stop) == MessageBoxResult.OK)
-                //тут надо написать отрпавку сообщения о продаже серверу
-                MessageBox.Show("продано!");
+            if (MessageBox.Show(string.Format(" Предложение от: {0}\n Предложенная цена: {1}\n За улицу: {2}", arg3, arg1, arg2), "Предложена сделака:", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                user.SendToSRV(string.Format("6:{0}:{1}:{2}", arg3, arg2, arg1));
+            }
         }
+
         [STAThread]
         private void UserConvert_OwnerEP(string obj)
         {
-            //var form = new Transaction(user, UserName, obj);
-            //Thread th = new Thread(form.ShowDialog())
-            //{
-            //    //Dispatcher.Invoke(() => { form.ShowDialog(); });
-            //    form.ShowDialog();
-            //});
-
-
-
-
-
-            //var form = new Transaction(user ,UserName, obj);
-            //form.ShowDialog();
-
-            var form = new Transaction(user, UserName, obj);
-            Thread th = new Thread(() =>
+            Thread th = new Thread((() =>
             {
-                //Dispatcher.Invoke(() => { form.ShowDialog(); });
-                form.ShowDialog();
-            });
-            th.TrySetApartmentState(ApartmentState.STA);
+                ///Ебал я в рот это окошко...
+                var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); form.Close();
+            }));
+            th.SetApartmentState(ApartmentState.STA);
             th.Start();
-
-            //throw new NotImplementedException();
-
-
-
-            //var form = new Transaction(user, UserName, obj);
-            //form.Dispatcher.BeginInvoke(() => form.ShowDialog());
         }
 
         private void UserConvert_AuctionStart(byte obj)
@@ -182,6 +162,6 @@ namespace User
 
         private void textBox4_TextChanged(object sender, TextChangedEventArgs e)
         {
-                    }
+        }
     }
 }
