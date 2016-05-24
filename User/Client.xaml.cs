@@ -145,5 +145,9 @@ namespace User
             var form = new Transaction();
             form.ShowDialog();
         }
+
+        private void textBox4_TextChanged(object sender, TextChangedEventArgs e)
+        {
+                    }
     }
 }

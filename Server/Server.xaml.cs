@@ -321,7 +321,7 @@ namespace Server
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            S1.SendTo((byte)comboBox.SelectedIndex, textBox.Text);
+            //S1.SendTo((byte)comboBox.SelectedIndex, textBox.Text);
         }
     }
 }
