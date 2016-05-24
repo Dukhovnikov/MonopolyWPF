@@ -293,7 +293,8 @@ namespace Server
             Action AddName = () => comboBox.Items.Add(obj);
             Dispatcher.Invoke(AddName);
             Users.Add(new UserData(obj, ep));
-            Action AddName2 = () => listBox_Copy.Items.Add(this.Users.Last());
+            //Action AddName2 = () => listBox_Copy.Items.Add(this.Users.Last());
+            Action AddName2 = () => listView.ItemsPanel.
             Dispatcher.Invoke(AddName2);
             Users.Last().OnDepositChange += ServerForm_OnDepositChange;
             Users.Last().OnStritsChange += ServerForm_OnStritsChange;
