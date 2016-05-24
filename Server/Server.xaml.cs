@@ -26,6 +26,8 @@ namespace Server
         IServerMessanger S1 = new ServerMessanger();
         List<WpfApplication1.UserData> Users = new List<WpfApplication1.UserData>(8);
 
+        Action<string> Log;
+
         public ServerForm()
         {
             InitializeComponent();
@@ -40,7 +42,13 @@ namespace Server
             SrvMsgConvertet.Error += SrvMsgConvertet_Error;
             SrvMsgConvertet.establish += SrvMsgConvertet_establish;
             SrvMsgConvertet.Rent += SrvMsgConvertet_Rent;
-        }
+            //Метод для лога
+            Log = (s) =>
+            {
+                Action a = () => listBox.Items.Add(s);
+                Dispatcher.Invoke(a);
+            };
+            }
 
         /// <summary>
         /// Влатим ренту
@@ -59,6 +67,7 @@ namespace Server
                     Users[ID].Deposit -= Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
                     Strits.strits[arg2].Owner.reason = string.Format("Rent from user {0}, street {1}", Users[ID].UserName, Strits.strits[arg2]);
                     Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
+                    Log(string.Format("Игрок {0} заплатил пользователю {1} ренту за улицу {2} ({3})", Users[ID], Strits.strits[arg2].Owner, Strits.strits[arg2].Rent));
                 }
                 else
                     S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit hadn't owner!\nIt can be yours!" }));
@@ -88,13 +97,17 @@ namespace Server
                         Strits.strits[arg2].IsLaid = true;
                         Users[ID].reason = "Street was establish";
                         Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].StreetPrice / 2;
+                        Log(string.Format("Игрок {0} заложил улицу {1} (+{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].StreetPrice / 2));
+
                     }
                     else
                     {
                         //Выкупаем
                         Strits.strits[arg2].IsLaid = true;
                         Users[ID].reason = "Street was deestablish";
-                        Strits.strits[arg2].Owner.Deposit += (int)(Strits.strits[arg2].StreetPrice / 1.8);
+                        Strits.strits[arg2].Owner.Deposit -= (int)(Strits.strits[arg2].StreetPrice / 1.8);
+                        Log(string.Format("Игрок {0} выкупил улицу {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].StreetPrice / 1.8));
+
                     }
                 }
                 else
@@ -119,16 +132,18 @@ namespace Server
         /// <summary>
         /// Кто то говорит что хочет поменять свой баланс
         /// </summary>
-        /// <param name="ID">Пользователь</param>
+        /// <param name="ID">Игрок</param>
         /// <param name="arg2">Требуемый баланс</param>
         /// <param name="arg3">Причина</param>
         private void SrvMsgConvertet_DepositUpdate(byte ID, int arg2, string arg3)
         {
             //Спрашиваем легально ли это
-            if (MessageBox.Show(string.Format("User {0} wonna change balance to {1} ({2})\n The rison is: {3}", Users[ID].UserName, arg2, arg2 - Users[ID].Deposit, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) { 
+            if (MessageBox.Show(string.Format("User {0} wonna change balance to {1} ({2})\n The rison is: {3}", Users[ID].UserName, arg2, arg2 - Users[ID].Deposit, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
                 //Меняем баланс
                 Users[ID].reason = arg3;
-            Users[ID].Deposit = arg2; }
+                Users[ID].Deposit = arg2;
+            }
             else
                 //Посылаем нафиг
                 S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
@@ -172,6 +187,8 @@ namespace Server
                         Strits.strits[arg2].HouseValue++;
                         Users[ID].reason = string.Format("House was bought");
                         Users[ID].Deposit -= Strits.strits[arg2].HousePrice;
+                        Log(string.Format("Игрок {0} построил дом на улице {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].HousePrice));
+
                     }
                     else
                         S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
@@ -201,26 +218,34 @@ namespace Server
         /// <summary>
         /// Запрос на покупку улицы
         /// </summary>
-        /// <param name="ID">Пользователь</param>
+        /// <param name="ID">Игрок</param>
         /// <param name="arg2">Улица</param>
         private void SrvMsgConvertet_AskSelling(byte ID, byte arg2)
         {
             try
             {
-                if (Strits.strits[arg2].Owner == null)
-                {
-                    Strits.strits[arg2].Owner = Users[ID];
-                    Users[ID].reason = string.Format("Strit {0} was bought", Strits.strits[arg2]);
-                    Users[ID].Deposit -= Strits.strits[arg2].StreetPrice;
-                    var a = Users[ID].StritNum != null ? Users[ID].StritNum.ToList() : new List<int>();
-                    a.Add(arg2);
-                    Users[ID].StritNum = a.ToArray();
-                }
+                //Спрашиваем легально ли это
+                if (MessageBox.Show(string.Format("Игрок {0} хочет купить улицу {1} ", Users[ID].UserName, Strits.strits[arg2]), "Покупка улицы", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    if (Strits.strits[arg2].Owner == null)
+                    {
+                        Strits.strits[arg2].Owner = Users[ID];
+                        Users[ID].reason = string.Format("Strit {0} was bought", Strits.strits[arg2]);
+                        Users[ID].Deposit -= Strits.strits[arg2].StreetPrice;
+                        var a = Users[ID].StritNum != null ? Users[ID].StritNum.ToList() : new List<int>();
+                        a.Add(arg2);
+                        Users[ID].StritNum = a.ToArray();
+                        Log(string.Format("Игрок {0} приобрел улицу {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].StreetPrice));
+
+                    }
+                    else
+                    {
+                        S1.SendTo(ID, SrvMsgConvertet.Create(new string[]
+                        {SrvMsgConvertet.OutMsgType.OtherOwner.GetHashCode().ToString(), Strits.strits[arg2].Owner.getSocket() }));
+                    }
                 else
-                {
                     S1.SendTo(ID, SrvMsgConvertet.Create(new string[]
-                    {SrvMsgConvertet.OutMsgType.OtherOwner.GetHashCode().ToString(), Strits.strits[arg2].Owner.getSocket() }));
-                }
+                                            {SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Банк отказал вам в покупке!" }));
+
             }
             catch (Exception ex)
             {
@@ -237,7 +262,6 @@ namespace Server
         /// <param name="arg4"></param>
         private void SrvMsgConvertet_acceptDeal(byte ID1, byte ID2, byte arg3, int arg4)
         {
-
             try
             {
                 ///проверяем свою ли улицу решил заложить
@@ -251,6 +275,7 @@ namespace Server
                     Users[ID2].reason = string.Format("Strit {0} was bought", Strits.strits[arg3]);
                     Users[ID1].Deposit += arg4;
                     Users[ID2].Deposit -= arg4;
+                    Log(string.Format("Игрок {0} продал улицу {2} игроку {1} за {3})", Users[ID1], Users[ID2], Strits.strits[arg3], arg4));
                 }
                 else
                     S1.SendTo(ID1, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
@@ -264,11 +289,12 @@ namespace Server
 
         private void S1_ClientConnect(string obj, System.Net.IPEndPoint ep)
         {
-            Action Log = () => listBox.Items.Add(obj + " has been connected\n");
-            Dispatcher.Invoke(Log);
+            Log(string.Format("Игрок {0} Присоединился к игре", obj));
             Action AddName = () => comboBox.Items.Add(obj);
             Dispatcher.Invoke(AddName);
             Users.Add(new UserData(obj, ep));
+            Action AddName2 = () => listBox_Copy.Items.Add(this.Users.Last());
+            Dispatcher.Invoke(AddName2);
             Users.Last().OnDepositChange += ServerForm_OnDepositChange;
             Users.Last().OnStritsChange += ServerForm_OnStritsChange;
         }
@@ -290,17 +316,16 @@ namespace Server
 
         private void S1_ClientDisconnect(string obj)
         {
-            MessageBox.Show(string.Format("User {0} has been disconected", obj));
-            Action Log = () => listBox.Items.Add(obj + " has been disconnected\n");
-            Dispatcher.Invoke(Log);
+            MessageBox.Show(string.Format("Игрок {0} отключился от игры", obj));
+             Log(string.Format("Игрок {0} отключился от игры", obj));
             Action Clear = () => comboBox.Items.Remove("User " + obj);
             Dispatcher.Invoke(Clear);
         }
 
         private void S1_NewMessage(string obj)
         {
-            Action Log = () => listBox.Items.Add(obj);
-            Dispatcher.Invoke(Log);
+            //Action Log = () => listBox.Items.Add(obj);
+            //Dispatcher.Invoke(Log);
             //тут обработка сообщения
             SrvMsgConvertet.Parse(obj);
 
@@ -322,6 +347,11 @@ namespace Server
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             //S1.SendTo((byte)comboBox.SelectedIndex, textBox.Text);
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

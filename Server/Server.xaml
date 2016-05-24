@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Server"
         mc:Ignorable="d"
         Title="Server" Height="482.921" Width="717" Icon="favicon.ico">
-    <Grid Margin="0,0,2,0">
+    <Grid Margin="0,0,-8,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFE4F5F0" Offset="0.419"/>
@@ -18,7 +18,7 @@
         <Button x:Name="button1" Content="Начать игру" HorizontalAlignment="Left" Margin="374,94,0,0" VerticalAlignment="Top" Width="160" Click="button1_Click" Height="28" FontFamily="Lucida Sans Unicode" FontSize="16" Background="{x:Null}" Foreground="#FF04422E" BorderBrush="#FF023A28" ToolTip="Нажмите сюда, чтобы запустить игру"/>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="129" Margin="34,140,0,0" VerticalAlignment="Top" Width="641" Foreground="#FF045D40" FontFamily="Lucida Sans Unicode" FontSize="16" BorderBrush="#FF023A28" Background="White"/>
         <Button x:Name="button2" Content="OK" HorizontalAlignment="Left" Margin="172,383,0,0" VerticalAlignment="Top" Width="62" Click="button2_Click" FontFamily="Lucida Sans Unicode" FontSize="16" Height="30" Background="{x:Null}" Foreground="#FF04422E" BorderBrush="#FF023A28" ToolTip="Нажмите сюда, чтобы выполнить операцию перевода денег "/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="38,333,0,0" VerticalAlignment="Top" Width="178" Height="30" ToolTip="Select user" FontFamily="Lucida Sans Unicode" FontSize="16" Foreground="#FF045D40" Background="{x:Null}" BorderBrush="#FF023A28"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="38,333,0,0" VerticalAlignment="Top" Width="178" Height="30" ToolTip="Select user" FontFamily="Lucida Sans Unicode" FontSize="16" Foreground="#FF045D40" Background="{x:Null}" BorderBrush="#FF023A28" SelectionChanged="comboBox_SelectionChanged"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="222,333,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF045D40" FontFamily="Lucida Sans Unicode" FontSize="16" Background="White" BorderBrush="#FF023A28"/>
         <Label x:Name="label" Content="Выполнить денежный перевод" HorizontalAlignment="Left" Margin="38,275,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="18.667" Foreground="#FF023A28" Width="334" Background="{x:Null}" HorizontalContentAlignment="Center"/>
         <Label x:Name="label1" Content="Добро пожаловать на сервер банка игры &quot;Монополия&quot;" HorizontalAlignment="Center" Margin="10,0,9.667,0" Foreground="#FF023A28" FontSize="21.333" FontFamily="Lucida Sans Unicode" FontWeight="Bold" VerticalAlignment="Top" Width="689" HorizontalContentAlignment="Center"/>

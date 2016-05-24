@@ -90,5 +90,10 @@ namespace WpfApplication1
 
         public event Action<UserData> OnDepositChange;
         public event Action<UserData> OnStritsChange;
+
+        public override string ToString()
+        {
+            return UserName;
+        }
     }
 }
