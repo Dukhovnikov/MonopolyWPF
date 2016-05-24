@@ -115,7 +115,7 @@ namespace Server
                     var temp = ListenTCP.Accept();
                     byte[] bufer = new byte[1024];
                     int size = temp.Receive(bufer);
-                    Clients.Add(new Client(temp, Encoding.ASCII.GetString(bufer, 0, size)));
+                    Clients.Add(new Client(temp, Encoding.UTF8.GetString(bufer, 0, size)));
                     UserConnected(Clients.Last().Name, (IPEndPoint)Clients.Last().MainSocket.RemoteEndPoint);
                     //подписываемся
                     Clients.Last().ClientDisconect += SRV_ClientDisconect;
@@ -149,10 +149,10 @@ namespace Server
                     byte[] data = new byte[1024];
                     //ListenUDP.ReceiveTimeout=100000;
                     int recv = ListenUDP.ReceiveFrom(data, ref ep);
-                    string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                    string stringData = Encoding.UTF8.GetString(data, 0, recv);
                     //отвечаем
                     IPEndPoint ipe = new IPEndPoint(IPAddress.Parse(ep.ToString().Split(':')[0]), int.Parse(ep.ToString().Split(':')[1]));
-                    byte[] msg = Encoding.ASCII.GetBytes(ipe.ToString());
+                    byte[] msg = Encoding.UTF8.GetBytes(ipe.ToString());
                     ListenUDP.SendTo(msg, ipe);
                 }
             }
