@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:User"
         mc:Ignorable="d"
-        Title="Transaction" Height="120.764" Width="272.67">
+        Title="Transaction" Height="165.764" Width="350.67">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="62,17,0,0" TextWrapping="Wrap" Text="How much you spend?" VerticalAlignment="Top" Width="155" GotFocus="textBox_GotFocus"/>
-        <Button x:Name="button" Content="Done" HorizontalAlignment="Left" Margin="62,45,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button1" Content="Cancel" HorizontalAlignment="Left" Margin="142,45,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="10,41,0,0" TextWrapping="Wrap" Text="How much you spend?" VerticalAlignment="Top" Width="154" GotFocus="textBox_GotFocus"/>
+        <Button x:Name="button" Content="Done" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="74" Click="button_Click"/>
+        <Button x:Name="button1" Content="Cancel" HorizontalAlignment="Left" Margin="90,68,0,0" VerticalAlignment="Top" Width="74" Click="button1_Click"/>
+        <Label x:Name="label" Content="Данная улица пренадлежит игроку " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

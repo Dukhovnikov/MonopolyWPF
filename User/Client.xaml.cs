@@ -27,6 +27,7 @@ namespace User
         public UserForm()
         {
             InitializeComponent();
+            comboBox.ItemsSource = Strits.strits;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

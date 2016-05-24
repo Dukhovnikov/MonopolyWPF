@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 
-namespace WpfApplication1
+namespace User
 {
     /// <summary>
     /// Искусственный клас, реализующий информмацию о пользователе.

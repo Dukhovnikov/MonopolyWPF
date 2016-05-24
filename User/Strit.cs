@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApplication1
+namespace User
 {
     public class Strit
     {
@@ -80,6 +80,9 @@ namespace WpfApplication1
             HouseValue = 0;
         }
 
-        
+        public override string ToString()
+        {
+            return StritName;
+        }
     }
 }

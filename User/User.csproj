@@ -60,9 +60,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Strit.cs" />
+    <Compile Include="Strits.cs" />
     <Compile Include="Transaction.xaml.cs">
       <DependentUpon>Transaction.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserData.cs" />
     <Compile Include="UserMessanger.cs" />
     <Compile Include="UserMsgConverter.cs" />
     <Page Include="Client.xaml">

@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 namespace User
 {
-    class UserMessanger : IUserMessanger
+    public class UserMessanger : IUserMessanger
     {
         #region события
         public event Action<string> NewMsg;
@@ -130,7 +130,7 @@ namespace User
         }
 
         /// <summary>
-        /// отправить сообщение на сервер
+        /// Отправить сообщение на сервер.
         /// </summary>
         /// <param name="msg">Сообщение</param>
         public void SendToSRV(string msg)
