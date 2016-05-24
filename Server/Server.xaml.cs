@@ -333,14 +333,14 @@ namespace Server
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            listBox.Items.Add("Server is ready!\n waiting users");
+            Log("Сервер включен! \nОжидается подключение игроков...");
             new Thread(S1.UDPShown).Start();
             new Thread(S1.StartSRV).Start();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            listBox.Items.Add("Start game");
+            Log("Игра начинается!");
             S1.ListenAll();
         }
 
