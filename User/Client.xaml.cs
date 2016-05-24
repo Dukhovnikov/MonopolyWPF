@@ -24,6 +24,7 @@ namespace User
         IUserMessanger user = new UserMessanger();
         IUserMessangConverter userConvert = new UserMsgConverter();
         List<Thread> Threads = new List<Thread>(3);
+        string UserName;
         public UserForm()
         {
             InitializeComponent();
@@ -79,7 +80,13 @@ namespace User
 
         private void UserConvert_OwnerEP(string obj)
         {
-            throw new NotImplementedException();
+            //var form = new Transaction(user ,UserName, obj);
+            //form.ShowDialog();
+
+            
+            Thread th = new Thread(() => { var form = new Transaction(user, UserName, obj); Dispatcher.Invoke(() => { form.Show(); }); });
+            th.Start();
+            //throw new NotImplementedException();
         }
 
         private void UserConvert_AuctionStart(byte obj)
@@ -117,6 +124,7 @@ namespace User
                     th2.IsBackground = true;
                     th.Start();
                     th2.Start();
+                    UserName = textBox.Text;
                 }
             }
             catch (Exception ex)
@@ -143,8 +151,9 @@ namespace User
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            var form = new Transaction();
-            form.ShowDialog();
+            //var form = new Transaction();
+            //form.ShowDialog();
+            user.SendToSRV("3:" + comboBox.SelectedIndex);
         }
 
         private void textBox4_TextChanged(object sender, TextChangedEventArgs e)
