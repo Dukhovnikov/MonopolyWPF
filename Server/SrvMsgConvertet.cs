@@ -49,7 +49,7 @@ namespace Server
         }
 
         /// <summary>
-        /// Типа исходящих сообщений.
+        /// Типа входящих сообщений.
         /// </summary>
         public enum InMsgType
         {

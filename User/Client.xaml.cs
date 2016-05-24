@@ -1,17 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Threading;
 
 namespace User
@@ -27,6 +16,9 @@ namespace User
         public UserForm()
         {
             InitializeComponent();
+
+            StreetsBox.ItemsSource = Strits.strits;
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -78,6 +70,9 @@ namespace User
 
         private void UserConvert_OwnerEP(string obj)
         {
+            var form = new Transaction(user);
+            form.ShowDialog();
+
             throw new NotImplementedException();
         }
 
@@ -144,6 +139,11 @@ namespace User
         {
             var form = new Transaction();
             form.ShowDialog();
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            user.SendToSRV("3:"+StreetsBox.SelectedIndex);
         }
     }
 }

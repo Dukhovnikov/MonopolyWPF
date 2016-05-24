@@ -5,18 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:User"
         mc:Ignorable="d"
-        Title="Client" Height="350" Width="525"
+        Title="Client" Height="382" Width="739"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
-    <Grid>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" />
-        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="69" Margin="149,41,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label x:Name="label" Content="История" HorizontalAlignment="Left" Margin="149,10,0,0" VerticalAlignment="Top" Width="100"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,158,0,0" TextWrapping="Wrap" Text="Enter Your Name" VerticalAlignment="Top" Width="120" GotFocus="textBox_GotFocus"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="10,186,0,0" TextWrapping="Wrap" Text="Enter a message" VerticalAlignment="Top" Width="120" GotFocus="textBox1_GotFocus"/>
-        <Button x:Name="button" Content="Find Server" HorizontalAlignment="Left" Margin="149,161,0,0" VerticalAlignment="Top" Width="86" Click="button_Click" ToolTip="" />
-        <Button x:Name="button1" Content="Send Message" HorizontalAlignment="Left" Margin="149,189,0,0" VerticalAlignment="Top" Width="86" Click="button1_Click"/>
-        <Button x:Name="button2" Content="Transaction" HorizontalAlignment="Left" Margin="149,214,0,0" VerticalAlignment="Top" Width="86" Click="button2_Click"/>
+    <Grid Margin="0,0,0,-2">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFE4F5F0" Offset="0.419"/>
+                <GradientStop Color="#FF299170" Offset="1"/>
+                <GradientStop Color="#FFB4ECDA" Offset="0.008"/>
+
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="206" Margin="216,91,0,0" VerticalAlignment="Top" Width="150" />
+        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="178" Margin="32,119,0,0" VerticalAlignment="Top" Width="150"/>
+        <Label x:Name="label" Content="Transactions" HorizontalAlignment="Center" Margin="51,79,567,0" VerticalAlignment="Top" Width="113" FontSize="16" FontFamily="Lucida Sans Unicode" ToolTip="History of your transactions" RenderTransformOrigin="0.533,0.561"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="27" Margin="199,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" GotFocus="textBox_GotFocus" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Please! Enter your name" UndoLimit="20"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="28" Margin="12,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384" FontFamily="Lucida Sans Unicode" ToolTip="Please! Enter your message" UndoLimit="50" FontSize="14.667"/>
+        <Button x:Name="button" Content="Find Server" HorizontalAlignment="Left" Margin="407,27,0,0" VerticalAlignment="Top" Width="100" Click="button_Click" ToolTip="Click here to find server." FontFamily="Lucida Sans Unicode" FontSize="14.667" OpacityMask="#FF045744" >
+            <Button.Background>
+                <ImageBrush/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="button1" Content="Send " HorizontalAlignment="Left" Margin="407,313,0,0" VerticalAlignment="Top" Width="100" Click="button1_Click" Height="28" ToolTip="Click here to send your message" FontSize="16" FontFamily="Lucida Sans"/>
+        <Button x:Name="button2" Content="Transaction" HorizontalAlignment="Left" Margin="407,270,0,0" VerticalAlignment="Top" Width="100" Click="button2_Click" ToolTip="Click here to complete the transaktions" FontSize="14.667" FontFamily="Lucida Sans Unicode"/>
+        <Label x:Name="label1" Content="Enter your username&#xD;&#xA;  to enter the game" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" Height="65" FontFamily="Lucida Sans Unicode" FontSize="16"/>
+        <ComboBox x:Name="StreetsBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="252" Margin="371,92,0,0"/>
+        <Button x:Name="button3" Content="Купить улицу" HorizontalAlignment="Left" Margin="628,94,0,0" VerticalAlignment="Top" Width="93" Click="button3_Click"/>
 
     </Grid>
+
+
 </Window>
