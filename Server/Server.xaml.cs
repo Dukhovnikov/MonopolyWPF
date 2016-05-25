@@ -370,5 +370,9 @@ namespace Server
             S1.kill();
         }
 
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
