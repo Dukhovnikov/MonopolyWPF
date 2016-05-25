@@ -68,14 +68,14 @@ namespace Server
                 if (Strits.strits[arg2].Owner != null)
                 {
                     ///Списываем с плательщика и записываем владельцу
-                    Users[ID].reason = string.Format("Rent is {0}", Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]);
+                    Users[ID].reason = string.Format("Рента {0}", Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]);
                     Users[ID].Deposit -= Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
-                    Strits.strits[arg2].Owner.reason = string.Format("Rent from user {0}, street {1}", Users[ID].UserName, Strits.strits[arg2]);
+                    Strits.strits[arg2].Owner.reason = string.Format("Игрок {0} оплатил ренту на улице {1}", Users[ID].UserName, Strits.strits[arg2]);
                     Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
                     Log(string.Format("Игрок {0} заплатил пользователю {1} ренту за улицу {2} ({3})", Users[ID], Strits.strits[arg2].Owner, Strits.strits[arg2].Rent));
                 }
                 else
-                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit hadn't owner!\nIt can be yours!" }));
+                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта улица никому не принадлежит, она может быть Вашей!" }));
 
             }
             catch (Exception ex)
@@ -100,7 +100,7 @@ namespace Server
                     {
                         //Закладываем
                         Strits.strits[arg2].IsLaid = true;
-                        Users[ID].reason = "Улица была эстаблишь (промт перевод)";
+                        Users[ID].reason = "Улица была заложена";
                         Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].StreetPrice / 2;
                         Log(string.Format("Игрок {0} заложил улицу {1} (+{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].StreetPrice / 2));
 
@@ -109,14 +109,14 @@ namespace Server
                     {
                         //Выкупаем
                         Strits.strits[arg2].IsLaid = true;
-                        Users[ID].reason = "Улица была дистаблишь (промт перевод)";
+                        Users[ID].reason = "Улица была выкулена";
                         Strits.strits[arg2].Owner.Deposit -= (int)(Strits.strits[arg2].StreetPrice / 1.8);
                         Log(string.Format("Игрок {0} выкупил улицу {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].StreetPrice / 1.8));
 
                     }
                 }
                 else
-                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
+                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Это не Ваша улица!" }));
 
             }
             catch (Exception ex)
@@ -143,7 +143,7 @@ namespace Server
         private void SrvMsgConvertet_DepositUpdate(byte ID, int arg2, string arg3)
         {
             //Спрашиваем легально ли это
-            if (MessageBox.Show(string.Format("User {0} wonna change balance to {1} ({2})\n The rison is: {3}", Users[ID].UserName, arg2, arg2 - Users[ID].Deposit, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show(string.Format("Пользователь {0} хочет изменить баланс на {1} ({2})\n по причине: {3}", Users[ID].UserName, arg2, arg2 - Users[ID].Deposit, arg3), "Deposit change", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 //Меняем баланс
                 Users[ID].reason = arg3;
@@ -152,7 +152,7 @@ namespace Server
             else
                 //Посылаем нафиг
                 S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                    SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Access deny!" }));
+                    SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Банк отказал Вам!" }));
         }
 
         /// <summary>
@@ -185,12 +185,12 @@ namespace Server
                         }
                     else
                         S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Max house value!" }));
+                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Максимальное количество домов!" }));
                     if (Good)
                     {
                         //Одобряем операцию
                         Strits.strits[arg2].HouseValue++;
-                        Users[ID].reason = string.Format("House was bought");
+                        Users[ID].reason = string.Format("Дом приобретен");
                         Users[ID].Deposit -= Strits.strits[arg2].HousePrice;
                         Log(string.Format("Игрок {0} построил дом на улице {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].HousePrice));
 
@@ -276,8 +276,8 @@ namespace Server
                     var t = Users[ID1].StritNum.ToList();
                     t.Add(arg3);
                     Users[ID2].StritNum = t.ToArray();
-                    Users[ID1].reason = string.Format("Strit {0} was sell", Strits.strits[arg3]);
-                    Users[ID2].reason = string.Format("Strit {0} was bought", Strits.strits[arg3]);
+                    Users[ID1].reason = string.Format("Улица {0} была продана", Strits.strits[arg3]);
+                    Users[ID2].reason = string.Format("Улица {0} была приобретена", Strits.strits[arg3]);
                     Users[ID1].Deposit += arg4;
                     Users[ID2].Deposit -= arg4;
                     Log(string.Format("Игрок {0} продал улицу {2} игроку {1} за {3})", Users[ID1], Users[ID2], Strits.strits[arg3], arg4));

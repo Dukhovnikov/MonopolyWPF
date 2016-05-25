@@ -186,5 +186,10 @@ namespace User
         {
 
         }
+
+        private void button7_Click(object sender, RoutedEventArgs e)
+        {
+            user.SendToSRV("5:" + comboBox.SelectedIndex);
+        }
     }
 }
