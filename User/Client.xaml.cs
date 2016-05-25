@@ -194,5 +194,10 @@ namespace User
         private void textBox4_TextChanged(object sender, TextChangedEventArgs e)
         {
         }
+
+        private void listBox3_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
