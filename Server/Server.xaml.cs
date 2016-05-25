@@ -48,7 +48,7 @@ namespace Server
                 Action a = () => listBox.Items.Add(s);
                 Dispatcher.Invoke(a);
             };
-            }
+        }
 
         /// <summary>
         /// Влатим ренту
@@ -302,7 +302,7 @@ namespace Server
         private void ServerForm_OnDepositChange(UserData sender)
         {
             S1.SendTo(sender.UserName, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.DepositUpdate.GetHashCode().ToString(), sender.Deposit.ToString(), sender.reason }));
-            Dispatcher.Invoke(()=>listView.Items.Refresh());
+            Dispatcher.Invoke(() => listView.Items.Refresh());
         }
 
         private void ServerForm_OnStritsChange(UserData sender)
@@ -323,7 +323,7 @@ namespace Server
         private void S1_ClientDisconnect(string obj)
         {
             MessageBox.Show(string.Format("Игрок {0} отключился от игры", obj));
-             Log(string.Format("Игрок {0} отключился от игры", obj));
+            Log(string.Format("Игрок {0} отключился от игры", obj));
             Action Clear = () => comboBox.Items.Remove("User " + obj);
             Dispatcher.Invoke(Clear);
         }
@@ -352,7 +352,7 @@ namespace Server
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            //S1.SendTo((byte)comboBox.SelectedIndex, textBox.Text);
+            UserEvent.UserEvents[comboBox_Copy.SelectedIndex](Users[comboBox.SelectedIndex]);
         }
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
