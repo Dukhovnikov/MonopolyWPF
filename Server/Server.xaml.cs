@@ -100,7 +100,7 @@ namespace Server
                     {
                         //Закладываем
                         Strits.strits[arg2].IsLaid = true;
-                        Users[ID].reason = "Street was establish";
+                        Users[ID].reason = "Улица была эстаблишь (промт перевод)";
                         Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].StreetPrice / 2;
                         Log(string.Format("Игрок {0} заложил улицу {1} (+{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].StreetPrice / 2));
 
@@ -109,7 +109,7 @@ namespace Server
                     {
                         //Выкупаем
                         Strits.strits[arg2].IsLaid = true;
-                        Users[ID].reason = "Street was deestablish";
+                        Users[ID].reason = "Улица была дистаблишь (промт перевод)";
                         Strits.strits[arg2].Owner.Deposit -= (int)(Strits.strits[arg2].StreetPrice / 1.8);
                         Log(string.Format("Игрок {0} выкупил улицу {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].StreetPrice / 1.8));
 
