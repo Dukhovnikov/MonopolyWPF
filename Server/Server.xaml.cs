@@ -197,11 +197,11 @@ namespace Server
                     }
                     else
                         S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "You can't build house here!" }));
+                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Ты не построишь дом на этой улице, потому что ты Лалка!" }));
                 }
                 else
                     S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                        SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
+                        SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Это улица не твоя, тварь!" }));
             }
             catch (Exception ex)
             {
@@ -234,7 +234,7 @@ namespace Server
                     if (Strits.strits[arg2].Owner == null)
                     {
                         Strits.strits[arg2].Owner = Users[ID];
-                        Users[ID].reason = string.Format("Strit {0} was bought", Strits.strits[arg2]);
+                        Users[ID].reason = string.Format("Улица {0} куплена", Strits.strits[arg2]);
                         Users[ID].Deposit -= Strits.strits[arg2].StreetPrice;
                         var a = Users[ID].StritNum != null ? Users[ID].StritNum.ToList() : new List<int>();
                         a.Add(arg2);
