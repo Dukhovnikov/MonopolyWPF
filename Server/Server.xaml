@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Server"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Server.ServerForm"
         mc:Ignorable="d"
-        Title="Server" Height="489.921" Width="717" Icon="favicon.ico" Closing="Window_Closing">
+        Title="Server" Height="489.921" Width="717" Icon="favicon.ico" Closing="Window_Closing" WindowStyle="ThreeDBorderWindow">
     <Grid Margin="0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
