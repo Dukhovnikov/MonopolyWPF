@@ -30,8 +30,51 @@ namespace User
         public UserForm()
         {
             InitializeComponent();
-            comboBox.ItemsSource = Strits.strits;
             house1.Visibility = Visibility.Hidden;
+            foreach (var item in Strits.strits)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                switch (item.Type)
+                {
+                    case Strit.Color.Коричневый:
+                        temp.Background = Brushes.SandyBrown;
+                        break;
+                    case Strit.Color.Голубой:
+                        temp.Background = Brushes.SkyBlue;
+                        break;
+                    case Strit.Color.Розовый:
+                        temp.Background = Brushes.Plum;
+                        break;
+                    case Strit.Color.Оранжевый:
+                        temp.Background = Brushes.Orange;
+                        break;
+                    case Strit.Color.Красный:
+                        temp.Background = Brushes.OrangeRed;
+                        break;
+                    case Strit.Color.Желтый:
+                        temp.Background = Brushes.Gold;
+                        break;
+                    case Strit.Color.Зеленый:
+                        temp.Background = Brushes.MediumSeaGreen;
+                        break;
+                    case Strit.Color.Синий:
+                        temp.Background = Brushes.RoyalBlue;
+                        break;
+                    case Strit.Color.ЖД:
+                        temp.Background = Brushes.LightSlateGray;
+                        break;
+                    case Strit.Color.Электростанция:
+                        temp.Background = Brushes.MintCream;
+                        break;
+                    case Strit.Color.Водопровод:
+                        temp.Background = Brushes.MintCream;
+                        break;
+                    default:
+                        break;
+                }
+                temp.Content = item.StritName;
+                comboBox.Items.Add(temp);
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -36,19 +36,27 @@ namespace User
             this.OtherUser = OtherUser;
             this.username = username;
             this.strit = strit;
-            label.Content += "\n";
-            label.Content += username;
         }
+
+        /// <summary>
+        /// Выполняет удаление текста при щелчке мыши.
+        /// </summary>
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             textBox.Text = "";
         }
 
+        /// <summary>
+        /// Закрытие формы.
+        /// </summary>
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Предлагает покупку улицы.
+        /// </summary>
         private void button_Click(object sender, RoutedEventArgs e)
         {
             user.UDPSend("3:" + textBox.Text + ":" + strit + ":" + username, OtherUser);
