@@ -36,6 +36,11 @@ namespace User
             InitializeComponent();
             comboBox.ItemsSource = Strits.strits;
             house1.Visibility = Visibility.Hidden;
+            house2.Visibility = Visibility.Hidden;
+            house3.Visibility = Visibility.Hidden;
+            house4.Visibility = Visibility.Hidden;
+            hotel.Visibility = Visibility.Hidden;
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -50,6 +55,7 @@ namespace User
             userConvert.UpdateDeposit += UserConvert_UpdateDeposit;
             userConvert.UpdateStrits += UserConvert_UpdateStrits;
             userConvert.Error += UserConvert_Error;
+            userConvert.RefreshHouse += UserConvert_RefreshHouse;
             Log = (S) =>
             {
                 Action a = () =>
@@ -59,6 +65,13 @@ namespace User
                 };
                 Dispatcher.Invoke(a);
             };
+        }
+
+        private void UserConvert_RefreshHouse(byte arg1, byte arg2)
+        {
+            Strits.strits[arg1].HouseValue = arg2;
+            Dispatcher.Invoke(() => listBox3.Items.Refresh());
+            Dispatcher.Invoke(UpdateImgs);
         }
 
         private void UserConvert_Error(string obj)
@@ -205,9 +218,66 @@ namespace User
         {
         }
 
+        /// <summary>
+        /// Отобразить информацию по улице
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBox3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            UpdateImgs();
+        }
 
+        /// <summary>
+        /// Обновить картинки домов
+        /// </summary>
+        void UpdateImgs()
+        {
+            switch ((listBox3.SelectedItem as Strit).HouseValue)
+            {
+                case (0):
+                    house1.Visibility = Visibility.Hidden;
+                    house2.Visibility = Visibility.Hidden;
+                    house3.Visibility = Visibility.Hidden;
+                    house4.Visibility = Visibility.Hidden;
+                    hotel.Visibility = Visibility.Hidden;
+                    break;
+                case (1):
+                    house1.Visibility = Visibility.Visible;
+                    house2.Visibility = Visibility.Hidden;
+                    house3.Visibility = Visibility.Hidden;
+                    house4.Visibility = Visibility.Hidden;
+                    hotel.Visibility = Visibility.Hidden;
+                    break;
+                case (2):
+                    house1.Visibility = Visibility.Visible;
+                    house2.Visibility = Visibility.Visible;
+                    house3.Visibility = Visibility.Hidden;
+                    house4.Visibility = Visibility.Hidden;
+                    hotel.Visibility = Visibility.Hidden;
+                    break;
+                case (3):
+                    house1.Visibility = Visibility.Visible;
+                    house2.Visibility = Visibility.Visible;
+                    house3.Visibility = Visibility.Visible;
+                    house4.Visibility = Visibility.Hidden;
+                    hotel.Visibility = Visibility.Hidden;
+                    break;
+                case (4):
+                    house1.Visibility = Visibility.Visible;
+                    house2.Visibility = Visibility.Visible;
+                    house3.Visibility = Visibility.Visible;
+                    house4.Visibility = Visibility.Visible;
+                    hotel.Visibility = Visibility.Hidden;
+                    break;
+                case (5):
+                    house1.Visibility = Visibility.Visible;
+                    house2.Visibility = Visibility.Visible;
+                    house3.Visibility = Visibility.Visible;
+                    house4.Visibility = Visibility.Visible;
+                    hotel.Visibility = Visibility.Visible;
+                    break;
+            }
         }
 
         /// <summary>
@@ -224,6 +294,23 @@ namespace User
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Покупка дома
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button8_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBox3.SelectedItem != null)
+            {
+                int index = Strits.strits.IndexOf(Strits.strits.Where((a) => a.StritName == (listBox3.SelectedItem as Strit).StritName).ToArray()[0]);
+                user.SendToSRV("2:" + index);
+                Log(string.Format("Покупка дома на {0}", Strits.strits[index]));
+            }
+            else
+                MessageBox.Show("Сначала необходимо выбрать улицу!");
         }
     }
 }

@@ -180,7 +180,7 @@ namespace Server
                                     select str).ToList();
                     bool Good = true;
                     //ну для начала проверим на максимум
-                    if (Strits.strits[arg2].HouseValue < 5)
+                    if (Strits.strits[arg2].HouseValue < 5) {
                         foreach (var a in OneColor)
                         {
                             //Проверяем чтоб все улицы принадлежали игроку
@@ -190,25 +190,30 @@ namespace Server
                             if (a.HouseValue < Strits.strits[arg2].HouseValue)
                                 Good = false;
                         }
-                    else
-                        S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Максимальное количество домов!" }));
-                    if (Good)
-                    {
-                        //Одобряем операцию
-                        Strits.strits[arg2].HouseValue++;
-                        Users[ID].reason = string.Format("Дом приобретен");
-                        Users[ID].Deposit -= Strits.strits[arg2].HousePrice;
-                        Log(string.Format("Игрок {0} построил дом на улице {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].HousePrice));
-
+                        if (Good)
+                        {
+                            //Одобряем операцию
+                            Users[ID].reason = string.Format("Дом приобретен");
+                            Users[ID].Deposit -= Strits.strits[arg2].HousePrice;
+                            Strits.strits[arg2].HouseValue++;
+                            Log(string.Format("Игрок {0} построил дом на улице {1} (-{2})", Users[ID], Strits.strits[arg2], Strits.strits[arg2].HousePrice));
+                            //Тут придумаем новое сообщения для изменения количества домов
+                            //пусть это будет 13:номер улицы:количество домов
+                            //просто потому что я так хочу
+                            S1.SendTo(ID, string.Format("13:{0}:{1}", arg2, Strits.strits[arg2].HouseValue));
+                        }
+                        else
+                            S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
+                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Не соблюдены условия постройки дома!" }));
                     }
-                    else
-                        S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Ты не построишь дом на этой улице, потому что ты Лалка!" }));
+                
+                else
+                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
+                            SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Максимальное количество домов!" }));
                 }
                 else
                     S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
-                        SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Это улица не твоя, тварь!" }));
+                        SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Это улица не принадлежит Вам!" }));
             }
             catch (Exception ex)
             {
