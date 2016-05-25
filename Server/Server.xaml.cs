@@ -24,7 +24,7 @@ namespace Server
     public partial class ServerForm : Window
     {
         IServerMessanger S1 = new ServerMessanger();
-        List<WpfApplication1.UserData> Users = new List<WpfApplication1.UserData>(8);
+        public static List<WpfApplication1.UserData> Users = new List<WpfApplication1.UserData>(8);
 
         Action<string> Log;
 
@@ -293,9 +293,8 @@ namespace Server
             Action AddName = () => comboBox.Items.Add(obj);
             Dispatcher.Invoke(AddName);
             Users.Add(new UserData(obj, ep));
-           // Action AddName2 = () => listBox_Copy.Items.Add(this.Users.Last());
-            //Action AddName2 = () => listView.ItemsPanel.
-           //Dispatcher.Invoke(AddName2);
+            Action AddName2 = () => listView.Items.Add(Users.Last());
+            Dispatcher.Invoke(AddName2);
             Users.Last().OnDepositChange += ServerForm_OnDepositChange;
             Users.Last().OnStritsChange += ServerForm_OnStritsChange;
         }
@@ -303,6 +302,7 @@ namespace Server
         private void ServerForm_OnDepositChange(UserData sender)
         {
             S1.SendTo(sender.UserName, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.DepositUpdate.GetHashCode().ToString(), sender.Deposit.ToString(), sender.reason }));
+            Dispatcher.Invoke(() => listView.Items.Refresh());
         }
 
         private void ServerForm_OnStritsChange(UserData sender)
@@ -315,6 +315,11 @@ namespace Server
             S1.SendTo(sender.UserName, SrvMsgConvertet.Create(t.ToArray()));
         }
 
+        /// <summary>
+        /// Действия при отключении клиента
+        /// </summary>
+        /// <param name="obj">Имя клиента</param>
+        /// <remarks>Надо по хорошему добавить удаление из списков</remarks>
         private void S1_ClientDisconnect(string obj)
         {
             MessageBox.Show(string.Format("Игрок {0} отключился от игры", obj));
@@ -347,12 +352,18 @@ namespace Server
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            //S1.SendTo((byte)comboBox.SelectedIndex, textBox.Text);
+            UserEvent.UserEvents[comboBox_Copy.SelectedIndex](Users[comboBox.SelectedIndex]);
         }
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            S1.kill();
+        }
+
     }
 }
