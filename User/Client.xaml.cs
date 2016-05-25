@@ -84,13 +84,34 @@ namespace User
         [STAThread]
         private void UserConvert_OwnerEP(string obj)
         {
+            //Thread th = new Thread((() =>
+            //{
+            //    ///Ебал я в рот это окошко...
+            //    var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); form.Close();
+            //}));
+            //th.SetApartmentState(ApartmentState.STA);
+            //th.Start();
+
             Thread th = new Thread((() =>
             {
                 ///Ебал я в рот это окошко...
-                var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); form.Close();
+                Dispatcher.Invoke(() =>
+                {
+                    var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); form.Close();
+                });
             }));
             th.SetApartmentState(ApartmentState.STA);
             th.Start();
+
+
+
+
+
+
+            //Thread newWindowThread = new Thread(new ThreadStart(() => { var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); }));
+            //newWindowThread.SetApartmentState(ApartmentState.STA);
+            //newWindowThread.Start();
+
         }
 
         private void UserConvert_AuctionStart(byte obj)
@@ -113,27 +134,36 @@ namespace User
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (textBox.Text != "")
             {
-                user.FindServer();
-                if ((user as UserMessanger).ServerIP != null)
+                try
                 {
-                    MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
-                    user.ConnectToSRV(textBox.Text);
-                    Thread th = new Thread(user.ListenTCP);
-                    Thread th2 = new Thread(user.ListenUDP);
-                    Threads.Add(th);
-                    Threads.Add(th2);
-                    th.IsBackground = true;
-                    th2.IsBackground = true;
-                    th.Start();
-                    th2.Start();
-                    UserName = textBox.Text;
+
+                    user.FindServer();
+                    if ((user as UserMessanger).ServerIP != null)
+                    {
+                        MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
+                        user.ConnectToSRV(textBox.Text);
+                        Thread th = new Thread(user.ListenTCP);
+                        Thread th2 = new Thread(user.ListenUDP);
+                        Threads.Add(th);
+                        Threads.Add(th2);
+                        th.IsBackground = true;
+                        th2.IsBackground = true;
+                        th.Start();
+                        th2.Start();
+                        UserName = textBox.Text;
+                        textBox.IsEnabled = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Требуется задать имя игрока.", "Ошибка данных.", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void Window_Closed(object sender, EventArgs e)

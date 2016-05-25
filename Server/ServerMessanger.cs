@@ -27,7 +27,7 @@ namespace Server
             Msgs = new List<string>();
         }
 
-        //interface
+        // Interface.
 
         public List<string> Msgs { get; }
 
@@ -39,20 +39,20 @@ namespace Server
         public event Action<string> Error;
 
         /// <summary>
-        /// Подписываемся на сообщения от всех клиентов
+        /// Подписываемся на сообщения от всех клиентов.
         /// </summary>
         public void ListenAll()
         {
-            //перестаем ожидать подключений
+            // Перестаем ожидать подключений.
             _shold_wait_users = false;
-            //подписываемся на сообщения
+            // Подписываемся на сообщения.
             try
             {
                 for (int i = 0; i < Clients.Count; i++)
                 {
-                    //отписываемся
+                    // Отписываемся.
                     Clients[i].HaveMessage -= _client_message;
-                    //подписываемся
+                    // Подписываемся.
                     Clients[i].HaveMessage += _client_message;
                     Thread th = new Thread(Clients[i].Recive);
                     th.Start();
@@ -82,7 +82,7 @@ namespace Server
         #endregion
 
         /// <summary>
-        /// Отправить клиенту под номером
+        /// Отправить клиенту под номером.
         /// </summary>
         /// <param name="ID">номнр клиента</param>
         /// <param name="msg">сообщение</param>
@@ -92,7 +92,7 @@ namespace Server
         }
 
         /// <summary>
-        /// Отправить по имени
+        /// Отправить по имени.
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="msg"></param>
@@ -102,7 +102,7 @@ namespace Server
         }
 
         /// <summary>
-        /// Запустить сервер
+        /// Запустить сервер.
         /// </summary>
         public void StartSRV()
         {
@@ -117,10 +117,10 @@ namespace Server
                     int size = temp.Receive(bufer);
                     Clients.Add(new Client(temp, Encoding.UTF8.GetString(bufer, 0, size)));
                     UserConnected(Clients.Last().Name, (IPEndPoint)Clients.Last().MainSocket.RemoteEndPoint);
-                    //подписываемся
+                    // Подписываемся.
                     Clients.Last().ClientDisconect += SRV_ClientDisconect;
                     Clients.Last().HaveMessage += _client_message;
-                    //начинаем слушать
+                    // Начинаем слушать.
                     Thread th = new Thread(Clients.Last().Recive);
                     th.Start();
                     i++;
@@ -133,7 +133,7 @@ namespace Server
         }
 
         /// <summary>
-        /// делает сервер видимым в сети
+        /// Делает сервер видимым в сети.
         /// </summary>
         public void UDPShown()
         {
@@ -142,15 +142,15 @@ namespace Server
             EndPoint ep = (EndPoint)iep;
             try
             {
-                //разрешаем подключения
+                // Разрешаем подключения.
                 while (true)
                 {
-                    //слушаем
+                    // Слушаем.
                     byte[] data = new byte[1024];
-                    //ListenUDP.ReceiveTimeout=100000;
+                    // ListenUDP.ReceiveTimeout=100000;
                     int recv = ListenUDP.ReceiveFrom(data, ref ep);
                     string stringData = Encoding.UTF8.GetString(data, 0, recv);
-                    //отвечаем
+                    // Отвечаем.
                     IPEndPoint ipe = new IPEndPoint(IPAddress.Parse(ep.ToString().Split(':')[0]), int.Parse(ep.ToString().Split(':')[1]));
                     byte[] msg = Encoding.UTF8.GetBytes(ipe.ToString());
                     ListenUDP.SendTo(msg, ipe);

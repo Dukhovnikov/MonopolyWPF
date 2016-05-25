@@ -45,13 +45,18 @@ namespace Server
             //Метод для лога
             Log = (s) =>
             {
-                Action a = () => listBox.Items.Add(s);
+                Action a = () =>
+                {
+                    listBox.Items.Add(s);
+                    listBox.ScrollIntoView(listBox.Items[listBox.Items.Count - 1]);
+                };
                 Dispatcher.Invoke(a);
             };
-            }
+
+        }
 
         /// <summary>
-        /// Влатим ренту
+        /// Блатим ренту.
         /// </summary>
         /// <param name="ID">плательщик</param>
         /// <param name="arg2">Улица</param>

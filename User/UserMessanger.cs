@@ -57,21 +57,19 @@ namespace User
         {
             try
             {
-                //кричим в сеть
-                Socket MySock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
-                    ProtocolType.Udp);
+                // Кричим в сеть.
+                Socket MySock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 IPEndPoint ipe = new IPEndPoint(IPAddress.Broadcast, ServerPort);
                 byte[] msg = Encoding.UTF8.GetBytes("1");
-                MySock.SetSocketOption(SocketOptionLevel.Socket,
-                    SocketOptionName.Broadcast, 1);
+                MySock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
                 MySock.SendTo(msg, ipe);
-                //слушаем ответы
+                // Слушаем ответы.
                 EndPoint ep = (EndPoint)ipe;
                 byte[] data = new byte[1024];
                 MySock.ReceiveTimeout = 15;
                 int recv = MySock.ReceiveFrom(data, ref ep);
                 string stringData = Encoding.UTF8.GetString(data, 0, recv);
-                //записываем адрес сервера
+                // Записываем адрес сервера.
                 ServerIP = ((IPEndPoint)ep).Address;
                 SRV.Bind(MySock.LocalEndPoint);
                 MySock.Close();

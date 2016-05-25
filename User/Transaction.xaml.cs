@@ -36,6 +36,8 @@ namespace User
             this.OtherUser = OtherUser;
             this.username = username;
             this.strit = strit;
+            label.Content += "\n";
+            label.Content += username;
         }
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -50,6 +52,7 @@ namespace User
         private void button_Click(object sender, RoutedEventArgs e)
         {
             user.UDPSend("3:" + textBox.Text + ":" + strit + ":" + username, OtherUser);
+            Close();
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
