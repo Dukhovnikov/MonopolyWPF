@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:User"
         mc:Ignorable="d"
-        Title="Transaction" Height="165.764" Width="350.67">
+        Title="Transaction" Height="165.764" Width="467.336">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -15,10 +15,10 @@
 
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="10,50,0,0" TextWrapping="Wrap" Text="Слышь, сколько у тебя есть?" VerticalAlignment="Top" Width="312" GotFocus="textBox_GotFocus" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center" TextChanged="textBox_TextChanged"/>
-        <Button x:Name="button" Content="ОК" HorizontalAlignment="Left" Margin="96,98,0,0" VerticalAlignment="Top" Width="74" Click="button_Click" Foreground="#FF023520" Background="{x:Null}" FontSize="16" FontFamily="Lucida Sans Unicode" BorderBrush="#FF023520"/>
-        <Button x:Name="button1" Content="Отмена" HorizontalAlignment="Left" Margin="176,98,0,0" VerticalAlignment="Top" Width="74" Click="button1_Click" Foreground="#FF023520" Background="{x:Null}" FontSize="16" FontFamily="Lucida Sans Unicode" BorderBrush="#FF023520"/>
-        <Label x:Name="label" Content="Данная улица пренадлежит игроку " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="312" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="10,50,0,0" TextWrapping="Wrap" Text="Слышь, сколько у тебя есть?" VerticalAlignment="Top" Width="446" GotFocus="textBox_GotFocus" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center" TextChanged="textBox_TextChanged"/>
+        <Button x:Name="button" Content="ОК" HorizontalAlignment="Center" Margin="142,98,236.667,0" VerticalAlignment="Top" Width="82" Click="button_Click" Foreground="#FF023520" Background="{x:Null}" FontSize="16" FontFamily="Lucida Sans Unicode" BorderBrush="#FF023520"/>
+        <Button x:Name="button1" Content="Отмена" HorizontalAlignment="Center" Margin="241,98,137.667,0" VerticalAlignment="Top" Width="82" Click="button1_Click" Foreground="#FF023520" Background="{x:Null}" FontSize="16" FontFamily="Lucida Sans Unicode" BorderBrush="#FF023520"/>
+        <Label x:Name="label" Content="Данная улица куплена другим игрком" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="446" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>

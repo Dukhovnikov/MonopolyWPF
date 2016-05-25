@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:User"
         mc:Ignorable="d"
-        Title="Client" Height="392.5" Width="667.666"
+        Title="Client" Height="697.333" Width="667.666"
         Loaded="Window_Loaded"
         Closed="Window_Closed" Icon="favicon.ico">
     <Grid>
@@ -17,25 +17,31 @@
 
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="101" Margin="399,188,0,0" VerticalAlignment="Top" Width="230" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF03493B" HorizontalContentAlignment="Center"/>
-        <Label x:Name="label" Content="История операций" HorizontalAlignment="Center" Margin="399,154,31.667,0" VerticalAlignment="Top" Width="230" FontSize="18.667" FontFamily="Lucida Sans Unicode" ToolTip="History of your transactions" RenderTransformOrigin="0.533,0.561" Foreground="#FF023520" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="29" Margin="132,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" GotFocus="textBox_GotFocus" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Please! Enter your name" UndoLimit="20" Foreground="#FF03493B" Background="{x:Null}" BorderBrush="#FF023520"/>
-        <Button x:Name="button" Content="Подключиться" HorizontalAlignment="Left" Margin="334,87,0,0" VerticalAlignment="Top" Width="134" Click="button_Click" ToolTip="Нажмите сюда, чтобы найти сервер и подключиться к нему" FontFamily="Lucida Sans Unicode" FontSize="16" OpacityMask="#FF045744" BorderBrush="#FF295E4E" Foreground="#FF023520" >
+        <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="164" Margin="39,476,0,0" VerticalAlignment="Top" Width="585" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF03493B" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label5" Content="История операций" HorizontalAlignment="Center" Margin="39,436,36.667,0" VerticalAlignment="Top" Width="585" FontSize="18.667" FontFamily="Lucida Sans Unicode" ToolTip="History of your transactions" RenderTransformOrigin="0.533,0.561" Foreground="#FF023520" HorizontalContentAlignment="Center" Height="40"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="29" Margin="132,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" GotFocus="textBox_GotFocus" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Please! Enter your name" UndoLimit="20" Foreground="#FF15382C" Background="{x:Null}" BorderBrush="#FF0E6F47" SelectionBrush="#FF28937E"/>
+        <Button x:Name="button5" Content="Подключиться" HorizontalAlignment="Left" Margin="334,87,0,0" VerticalAlignment="Top" Width="134" Click="button_Click" ToolTip="Нажмите сюда, чтобы найти сервер и подключиться к нему" FontFamily="Lucida Sans Unicode" FontSize="16" OpacityMask="#FF045744" BorderBrush="#FF407C6A" Foreground="#FF023520" >
             <Button.Background>
                 <ImageBrush/>
             </Button.Background>
         </Button>
-        <Button x:Name="button2" Content="Купить" HorizontalAlignment="Left" Margin="477,309,0,0" VerticalAlignment="Top" Width="152" Click="button2_Click" ToolTip="Нажмите сюда, чтобы приобрести недвижимость" FontSize="16" FontFamily="Lucida Sans Unicode" Background="{x:Null}" BorderBrush="#FF295E4E" Foreground="#FF11382C"/>
-        <Label x:Name="label1" Content="Введите имя пользователя и нажмите &quot;Подключиться&quot;, чтобы начать игру" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Height="34" FontFamily="Lucida Sans Unicode" FontSize="16" Width="641" Foreground="#FF295E4E" HorizontalContentAlignment="Center"/>
-        <Label x:Name="label2" Content="Добро пожаловать в личный кабинет игры &quot;Монополия&quot;" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" FontWeight="Bold" Width="641" Foreground="#FF11382C" Height="40" HorizontalContentAlignment="Center"/>
-        <Label x:Name="label3" Content="Баланс: " HorizontalAlignment="Center" Margin="228,126,220,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="16" Background="{x:Null}" Foreground="#FF03493B" Width="130" Height="29"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="101" Margin="24,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Foreground="#FF03493B" FontFamily="Lucida Sans Unicode" FontSize="16" HorizontalContentAlignment="Center"/>
-        <Label x:Name="label4" Content="Моя недвижимость" HorizontalAlignment="Left" Margin="24,154,0,0" VerticalAlignment="Top" Width="230" FontSize="18.667" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center"/>
-        <Label x:Name="label5" Content="Дома:" HorizontalAlignment="Left" Margin="265,200,0,0" VerticalAlignment="Top" Height="29" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF054430" Width="69"/>
-        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="29" Margin="334,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" FontFamily="Lucida Sans Unicode" FontSize="16" Foreground="#FF03493B" UndoLimit="1" HorizontalContentAlignment="Center" BorderBrush="#FF11382C"/>
-        <Label x:Name="label6" Content="Отели:" HorizontalAlignment="Left" Margin="265,238,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="16" Background="{x:Null}" Foreground="#FF054430" Height="29" Width="69"/>
-        <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="29" Margin="334,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF0E4635" RenderTransformOrigin="0.326,-0.138" TextChanged="textBox4_TextChanged" UndoLimit="1" HorizontalContentAlignment="Center" BorderBrush="#FF11382C"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="24,309,0,0" VerticalAlignment="Top" Width="444" Foreground="#FF03493B" FontSize="16" FontFamily="Lucida Sans Unicode" Height="29" ToolTip="Нажмите сюда, чтобы выбрать участок недвижимости" BorderBrush="#FF023520" Background="{x:Null}"/>
+        <Button x:Name="button6" Content="Купить" HorizontalAlignment="Left" Margin="333,401,0,0" VerticalAlignment="Top" Width="135" Click="button2_Click" ToolTip="Нажмите сюда, чтобы приобрести недвижимость" FontSize="16" FontFamily="Lucida Sans Unicode" Background="{x:Null}" BorderBrush="#FF295E4E" Foreground="#FF11382C" Height="30"/>
+        <Label x:Name="label6" Content="Введите имя пользователя и нажмите &quot;Подключиться&quot;, чтобы начать игру" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Height="34" FontFamily="Lucida Sans Unicode" FontSize="16" Width="641" Foreground="#FF295E4E" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label7" Content="Добро пожаловать в личный кабинет игры &quot;Монополия&quot;" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" FontWeight="Bold" Width="641" Foreground="#FF11382C" Height="40" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label8" Content="Мой баланс: " HorizontalAlignment="Center" Margin="10,121,9.667,0" VerticalAlignment="Top" FontFamily="Lucida Sans Unicode" FontSize="21.333" Background="{x:Null}" Foreground="#FF03493B" Width="641" Height="34" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="label9" Content="Моя недвижимость" HorizontalAlignment="Left" Margin="39,155,0,0" VerticalAlignment="Top" Width="397" FontSize="18.667" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center" Height="34"/>
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="39,401,0,0" VerticalAlignment="Top" Width="289" Foreground="#FF03493B" FontSize="16" FontFamily="Lucida Sans Unicode" Height="30" ToolTip="Нажмите сюда, чтобы выбрать участок недвижимости" BorderBrush="#FF023520" Background="{x:Null}"/>
+        <Button x:Name="button7" Content="Оплатить ренту" HorizontalAlignment="Left" Margin="473,401,0,0" VerticalAlignment="Top" Width="151" Background="{x:Null}" Foreground="#FF25402C" BorderBrush="#FF385951" Height="30" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Нажмите сюда, чтобы оплатить ренту" BorderThickness="1"/>
+        <Button x:Name="button8" Content="Купить дом" HorizontalAlignment="Left" Margin="460,256,0,0" VerticalAlignment="Top" Width="164" Height="30" BorderBrush="#FF11382C" Foreground="#FF11382C" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Нажмите сюда, чтобы приобрести дом" Background="{x:Null}"/>
+        <Button x:Name="button9" Content="Заложить улицу" HorizontalAlignment="Left" Margin="460,299,0,0" VerticalAlignment="Top" Width="164" Height="30" ToolTip="" Foreground="#FF11382C" BorderBrush="#FF11382C" FontSize="16" FontFamily="Lucida Sans Unicode" Background="{x:Null}"/>
+        <ListBox x:Name="listBox3" HorizontalAlignment="Left" Height="162" Margin="39,189,0,0" VerticalAlignment="Top" Width="397"/>
+        <Image x:Name="house1" HorizontalAlignment="Left" Visibility="Visible" Height="27" Margin="460,213,0,0" VerticalAlignment="Top" Width="27" Source="Bitmap1.bmp"/>
+        <Image x:Name="house2" HorizontalAlignment="Left" Visibility="Visible" Height="27" Margin="492,213,0,0" VerticalAlignment="Top" Width="27" Source="Bitmap1.bmp"/>
+        <Image x:Name="house3" HorizontalAlignment="Left" Visibility="Visible" Height="27" Margin="524,213,0,0" VerticalAlignment="Top" Width="27" Source="Bitmap1.bmp"/>
+        <Image x:Name="house4" HorizontalAlignment="Left" Visibility="Visible" Height="27" Margin="556,213,0,0" VerticalAlignment="Top" Width="27" Source="Bitmap1.bmp"/>
+        <Label x:Name="label" Content="Мои дома" HorizontalAlignment="Left" Margin="441,155,0,0" VerticalAlignment="Top" Foreground="#FF11382C" FontSize="18.667" FontFamily="Lucida Sans Unicode" Width="201" HorizontalContentAlignment="Center" Height="34"/>
+        <Image x:Name="hotel" HorizontalAlignment="Left" Height="32" Margin="590,208,0,0" VerticalAlignment="Top" Width="32" Source="Bitmap2.bmp"/>
+        <Label x:Name="label5_Copy" Content="Банковские операции" HorizontalAlignment="Center" Margin="39,356,36.667,0" VerticalAlignment="Top" Width="585" FontSize="18.667" FontFamily="Lucida Sans Unicode" ToolTip="" RenderTransformOrigin="0.533,0.561" Foreground="#FF023520" HorizontalContentAlignment="Center" Height="40"/>
 
     </Grid>
 

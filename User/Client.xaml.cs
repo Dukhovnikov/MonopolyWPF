@@ -30,7 +30,8 @@ namespace User
         public UserForm()
         {
             InitializeComponent();
-            comboBox.ItemsSource = Strits.strits;
+            //comboBox.ItemsSource = Strits.strits;
+            house1.Visibility = Visibility.Hidden;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -61,9 +62,9 @@ namespace User
         {
             Action act = () =>
             {
-                listBox1.Items.Clear();
-                foreach (var a in obj)
-                    listBox1.Items.Add(a);
+                //listBox1.Items.Clear();
+                //foreach (var a in obj)
+                //    listBox1.Items.Add(a);
             };
             this.Dispatcher.Invoke(act);
         }
@@ -87,7 +88,7 @@ namespace User
             Thread th = new Thread((() =>
             {
                 ///Ебал я в рот это окошко...
-                var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); form.Close();
+                //var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); form.Close();
             }));
             th.SetApartmentState(ApartmentState.STA);
             th.Start();
@@ -101,8 +102,8 @@ namespace User
 
         private void User_NewMsg(string obj)
         {
-            Action act = () => listBox1.Items.Add(obj);
-            this.Dispatcher.Invoke(act);
+            //Action act = () => listBox1.Items.Add(obj);
+            //this.Dispatcher.Invoke(act);
             userConvert.Parse(obj);
         }
         private void UserConvert_UpdateDeposit(int arg1, string arg2)
@@ -119,7 +120,7 @@ namespace User
                 if ((user as UserMessanger).ServerIP != null)
                 {
                     MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
-                    user.ConnectToSRV(textBox.Text);
+                    //user.ConnectToSRV(textBox.Text);
                     Thread th = new Thread(user.ListenTCP);
                     Thread th2 = new Thread(user.ListenUDP);
                     Threads.Add(th);
@@ -128,7 +129,7 @@ namespace User
                     th2.IsBackground = true;
                     th.Start();
                     th2.Start();
-                    UserName = textBox.Text;
+                    //UserName = textBox.Text;
                 }
             }
             catch (Exception ex)
@@ -146,18 +147,18 @@ namespace User
         }
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            textBox.Text = "";
+            //textBox.Text = "";
         }
         private void textBox1_GotFocus(object sender, RoutedEventArgs e)
         {
-            textBox.Text = "";
+            //textBox.Text = "";
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             //var form = new Transaction();
             //form.ShowDialog();
-            user.SendToSRV("3:" + comboBox.SelectedIndex);
+            //user.SendToSRV("3:" + comboBox.SelectedIndex);
         }
 
         private void textBox4_TextChanged(object sender, TextChangedEventArgs e)
