@@ -30,7 +30,7 @@ namespace User
         public UserForm()
         {
             InitializeComponent();
-            //comboBox.ItemsSource = Strits.strits;
+            comboBox.ItemsSource = Strits.strits;
             house1.Visibility = Visibility.Hidden;
         }
 
@@ -85,13 +85,6 @@ namespace User
         [STAThread]
         private void UserConvert_OwnerEP(string obj)
         {
-            //Thread th = new Thread((() =>
-            //{
-            //    ///Ебал я в рот это окошко...
-            //    var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); form.Close();
-            //}));
-            //th.SetApartmentState(ApartmentState.STA);
-            //th.Start();
 
             Thread th = new Thread((() =>
             {
@@ -104,15 +97,6 @@ namespace User
             th.SetApartmentState(ApartmentState.STA);
             th.Start();
 
-
-
-
-
-
-            //Thread newWindowThread = new Thread(new ThreadStart(() => { var form = new Transaction(user, UserName, obj, (byte)comboBox.SelectedIndex); form.ShowDialog(); }));
-            //newWindowThread.SetApartmentState(ApartmentState.STA);
-            //newWindowThread.Start();
-
         }
 
         private void UserConvert_AuctionStart(byte obj)
@@ -123,28 +107,27 @@ namespace User
 
         private void User_NewMsg(string obj)
         {
-            //Action act = () => listBox1.Items.Add(obj);
-            //this.Dispatcher.Invoke(act);
             userConvert.Parse(obj);
         }
+
         private void UserConvert_UpdateDeposit(int arg1, string arg2)
         {
             MessageBox.Show(arg2);
             Action act = () => label.Content = arg1.ToString();
             this.Dispatcher.Invoke(act);
         }
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
             if (textBox.Text != "")
             {
             try
             {
-
                 user.FindServer();
                 if ((user as UserMessanger).ServerIP != null)
                 {
                     MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
-                    //user.ConnectToSRV(textBox.Text);
+                    user.ConnectToSRV(textBox.Text);
                     Thread th = new Thread(user.ListenTCP);
                     Thread th2 = new Thread(user.ListenUDP);
                     Threads.Add(th);
@@ -167,18 +150,22 @@ namespace User
                 MessageBox.Show("Требуется задать имя игрока.", "Ошибка данных.", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             (user as UserMessanger).Disconnect();
         }
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             //user.SendToSRV(textBox1.Text);
         }
+
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             //textBox.Text = "";
         }
+
         private void textBox1_GotFocus(object sender, RoutedEventArgs e)
         {
             //textBox.Text = "";
@@ -188,7 +175,7 @@ namespace User
         {
             //var form = new Transaction();
             //form.ShowDialog();
-            //user.SendToSRV("3:" + comboBox.SelectedIndex);
+            user.SendToSRV("3:" + comboBox.SelectedIndex);
         }
 
         private void textBox4_TextChanged(object sender, TextChangedEventArgs e)
