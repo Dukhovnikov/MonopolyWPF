@@ -315,6 +315,11 @@ namespace Server
             S1.SendTo(sender.UserName, SrvMsgConvertet.Create(t.ToArray()));
         }
 
+        /// <summary>
+        /// Действия при отключении клиента
+        /// </summary>
+        /// <param name="obj">Имя клиента</param>
+        /// <remarks>Надо по хорошему добавить удаление из списков</remarks>
         private void S1_ClientDisconnect(string obj)
         {
             MessageBox.Show(string.Format("Игрок {0} отключился от игры", obj));
@@ -354,5 +359,11 @@ namespace Server
         {
 
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            S1.kill();
+        }
+
     }
 }

@@ -38,5 +38,6 @@ namespace Server
         /// </summary>
         event Action<string, IPEndPoint> UserConnected;
 
+        void kill();
     }
 }

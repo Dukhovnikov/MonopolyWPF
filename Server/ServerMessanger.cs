@@ -161,5 +161,11 @@ namespace Server
                 UDPShown();
             }
         }
+
+        public void kill()
+        {
+            ListenTCP.Close();
+            ListenUDP.Close();
+        }
     }
 }
