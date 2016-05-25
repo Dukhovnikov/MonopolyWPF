@@ -15,7 +15,7 @@ namespace WpfApplication1
         /// <summary>
         /// Имя пользователя.
         /// </summary>
-        public string UserName;
+        public string UserName { get; set; }
 
         /// <summary>
         /// Адрес пользователя.

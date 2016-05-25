@@ -293,7 +293,7 @@ namespace Server
             Action AddName = () => comboBox.Items.Add(obj);
             Dispatcher.Invoke(AddName);
             Users.Add(new UserData(obj, ep));
-            Action AddName2 = () => listBox_Copy.Items.Add(Users.Last());
+            Action AddName2 = () => listView.Items.Add(Users.Last());
             Dispatcher.Invoke(AddName2);
             Users.Last().OnDepositChange += ServerForm_OnDepositChange;
             Users.Last().OnStritsChange += ServerForm_OnStritsChange;
@@ -302,6 +302,7 @@ namespace Server
         private void ServerForm_OnDepositChange(UserData sender)
         {
             S1.SendTo(sender.UserName, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.DepositUpdate.GetHashCode().ToString(), sender.Deposit.ToString(), sender.reason }));
+            Dispatcher.Invoke(()=>listView.Items.Refresh());
         }
 
         private void ServerForm_OnStritsChange(UserData sender)

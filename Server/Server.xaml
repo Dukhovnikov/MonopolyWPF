@@ -27,8 +27,8 @@
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="123" Margin="407,319,0,0" VerticalAlignment="Top" Width="268">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Игрок" Width="180" DisplayMemberBinding="{Binding Path=ModelName}"/>
-                    <GridViewColumn Header="Счет" Width="88" DisplayMemberBinding="{Binding Path=ModelNubmer}"/>
+                    <GridViewColumn Header="Игрок" Width="180" DisplayMemberBinding="{Binding UserName}"/>
+                    <GridViewColumn Header="Счет" Width="88" DisplayMemberBinding="{Binding Deposit}"/>
                 </GridView>
             </ListView.View>
         </ListView>
