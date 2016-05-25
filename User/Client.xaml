@@ -19,7 +19,7 @@
         </Grid.Background>
         <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="164" Margin="39,476,0,0" VerticalAlignment="Top" Width="585" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF03493B" HorizontalContentAlignment="Center"/>
         <Label x:Name="label5" Content="История операций" HorizontalAlignment="Center" Margin="39,436,36.667,0" VerticalAlignment="Top" Width="585" FontSize="18.667" FontFamily="Lucida Sans Unicode" ToolTip="History of your transactions" RenderTransformOrigin="0.533,0.561" Foreground="#FF023520" HorizontalContentAlignment="Center" Height="40"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="29" Margin="132,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" GotFocus="textBox_GotFocus" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Please! Enter your name" UndoLimit="20" Foreground="#FF15382C" Background="{x:Null}" BorderBrush="#FF0E6F47" SelectionBrush="#FF28937E"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="29" Margin="132,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontFamily="Lucida Sans Unicode" FontSize="16" ToolTip="Please! Enter your name" UndoLimit="20" Foreground="#FF15382C" Background="{x:Null}" BorderBrush="#FF0E6F47" SelectionBrush="#FF28937E" GotFocus="textBox_GotFocus"/>
         <Button x:Name="button5" Content="Подключиться" HorizontalAlignment="Left" Margin="334,87,0,0" VerticalAlignment="Top" Width="134" Click="button_Click" ToolTip="Нажмите сюда, чтобы найти сервер и подключиться к нему" FontFamily="Lucida Sans Unicode" FontSize="16" OpacityMask="#FF045744" BorderBrush="#FF407C6A" Foreground="#FF023520" >
             <Button.Background>
                 <ImageBrush/>

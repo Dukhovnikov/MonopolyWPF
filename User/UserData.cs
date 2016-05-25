@@ -44,11 +44,11 @@ namespace User
             return _socket.ToString();
         }
 
-        int[] _strits;
+        byte[] _strits;
         /// <summary>
         /// Улицы принадлежащие пользователю.
         /// </summary>
-        public int[] StritNum
+        public byte[] StritNum
         {
             get
             {
@@ -57,7 +57,7 @@ namespace User
             set
             {
                 _strits = value;
-                OnStritsChange();
+                OnStritsChange?.Invoke();
             }
         }
 
@@ -84,6 +84,11 @@ namespace User
         {
             this.UserName = UserName;
             this._socket = _socket;
+        }
+
+        public UserData(string UserName)
+        {
+            this.UserName = UserName;
         }
 
         public event Action OnDepositChange;

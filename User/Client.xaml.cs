@@ -26,7 +26,11 @@ namespace User
         IUserMessanger user = new UserMessanger();
         IUserMessangConverter userConvert = new UserMsgConverter();
         List<Thread> Threads = new List<Thread>(3);
+        UserData Me;
         string UserName;
+        Action<string> Log;
+
+
         public UserForm()
         {
             InitializeComponent();
@@ -46,6 +50,15 @@ namespace User
             userConvert.UpdateDeposit += UserConvert_UpdateDeposit;
             userConvert.UpdateStrits += UserConvert_UpdateStrits;
             userConvert.Error += UserConvert_Error;
+            Log = (S) =>
+            {
+                Action a = () =>
+                {
+                    listBox2.Items.Add(S);
+                    listBox2.ScrollIntoView(listBox2.Items[listBox2.Items.Count - 1]);
+                };
+                Dispatcher.Invoke(a);
+            };
         }
 
         private void UserConvert_Error(string obj)
@@ -58,13 +71,16 @@ namespace User
             MessageBox.Show(obj);
         }
 
+        /// <summary>
+        /// Обновление списка улиц
+        /// </summary>
+        /// <param name="obj"></param>
         private void UserConvert_UpdateStrits(byte[] obj)
         {
             Action act = () =>
             {
-                //listBox1.Items.Clear();
-                //foreach (var a in obj)
-                //    listBox1.Items.Add(a);
+                Me.StritNum = obj;
+                listBox3.ItemsSource = Me.StritList;
             };
             this.Dispatcher.Invoke(act);
         }
@@ -72,16 +88,30 @@ namespace User
         private void UserConvert_SystemMsg(string obj)
         {
             MessageBox.Show(obj);
+            Log(obj);
         }
 
+        /// <summary>
+        /// Поступившее предложение от другого игрока
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
         private void UserConvert_SellStrit(int arg1, byte arg2, string arg3)
         {
-            if (MessageBox.Show(string.Format(" Предложение от: {0}\n Предложенная цена: {1}\n За улицу: {2}", arg3, arg1, arg2), "Предложена сделака:", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            string S = string.Format(" Предложение от: {0}\n Предложенная цена: {1}\n За улицу: {2}", arg3, arg1, Strits.strits[arg2]);
+            if (MessageBox.Show(S, "Предложена сделака:", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 user.SendToSRV(string.Format("6:{0}:{1}:{2}", arg3, arg2, arg1));
+                Log(S);
             }
         }
 
+
+        /// <summary>
+        /// Обработка сделки
+        /// </summary>
+        /// <param name="obj"></param>
         [STAThread]
         private void UserConvert_OwnerEP(string obj)
         {
@@ -110,41 +140,48 @@ namespace User
             userConvert.Parse(obj);
         }
 
+        /// <summary>
+        /// Обнавление баланса
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
         private void UserConvert_UpdateDeposit(int arg1, string arg2)
         {
             MessageBox.Show(arg2);
             Action act = () => label.Content = arg1.ToString();
             this.Dispatcher.Invoke(act);
+            Log(arg2);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
             if (textBox.Text != "")
             {
-            try
-            {
-                user.FindServer();
-                if ((user as UserMessanger).ServerIP != null)
+                try
                 {
-                    MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
-                    user.ConnectToSRV(textBox.Text);
-                    Thread th = new Thread(user.ListenTCP);
-                    Thread th2 = new Thread(user.ListenUDP);
-                    Threads.Add(th);
-                    Threads.Add(th2);
-                    th.IsBackground = true;
-                    th2.IsBackground = true;
-                    th.Start();
-                    th2.Start();
+                    user.FindServer();
+                    if ((user as UserMessanger).ServerIP != null)
+                    {
+                        MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
+                        user.ConnectToSRV(textBox.Text);
+                        Thread th = new Thread(user.ListenTCP);
+                        Thread th2 = new Thread(user.ListenUDP);
+                        Threads.Add(th);
+                        Threads.Add(th2);
+                        th.IsBackground = true;
+                        th2.IsBackground = true;
+                        th.Start();
+                        th2.Start();
                         UserName = textBox.Text;
                         textBox.IsEnabled = false;
+                        Me = new UserData(UserName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
             else
             {
                 MessageBox.Show("Требуется задать имя игрока.", "Ошибка данных.", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -156,20 +193,6 @@ namespace User
             (user as UserMessanger).Disconnect();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            //user.SendToSRV(textBox1.Text);
-        }
-
-        private void textBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //textBox.Text = "";
-        }
-
-        private void textBox1_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //textBox.Text = "";
-        }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
@@ -187,9 +210,20 @@ namespace User
 
         }
 
+        /// <summary>
+        /// Оплата ренты
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button7_Click(object sender, RoutedEventArgs e)
         {
             user.SendToSRV("5:" + comboBox.SelectedIndex);
+            Log(string.Format("Оплата ренты на {0}", comboBox.SelectedItem));
+        }
+
+        private void textBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

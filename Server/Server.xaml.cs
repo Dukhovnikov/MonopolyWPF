@@ -67,12 +67,19 @@ namespace Server
                 //Проверяем есть ли владелец
                 if (Strits.strits[arg2].Owner != null)
                 {
-                    ///Списываем с плательщика и записываем владельцу
-                    Users[ID].reason = string.Format("Рента {0}", Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]);
-                    Users[ID].Deposit -= Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
-                    Strits.strits[arg2].Owner.reason = string.Format("Игрок {0} оплатил ренту на улице {1}", Users[ID].UserName, Strits.strits[arg2]);
-                    Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
-                    Log(string.Format("Игрок {0} заплатил пользователю {1} ренту за улицу {2} ({3})", Users[ID], Strits.strits[arg2].Owner, Strits.strits[arg2].Rent));
+                    if (Strits.strits[arg2].Owner == Users[ID])
+                    {
+                        S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта недвижимость принадлежит Вам!" }));
+                    }
+                    else
+                    {
+                        ///Списываем с плательщика и записываем владельцу
+                        Users[ID].reason = string.Format("Рента {0}", Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]);
+                        Users[ID].Deposit -= Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
+                        Strits.strits[arg2].Owner.reason = string.Format("Игрок {0} оплатил ренту на улице {1}", Users[ID].UserName, Strits.strits[arg2]);
+                        Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
+                        Log(string.Format("Игрок {0} заплатил пользователю {1} ренту за улицу {2} ({3})", Users[ID], Strits.strits[arg2].Owner, Strits.strits[arg2].Rent));
+                    }
                 }
                 else
                     S1.SendTo(ID, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта улица никому не принадлежит, она может быть Вашей!" }));
@@ -234,7 +241,7 @@ namespace Server
                     if (Strits.strits[arg2].Owner == null)
                     {
                         Strits.strits[arg2].Owner = Users[ID];
-                        Users[ID].reason = string.Format("Улица {0} куплена", Strits.strits[arg2]);
+                        Users[ID].reason = string.Format("  {0} куплена", Strits.strits[arg2]);
                         Users[ID].Deposit -= Strits.strits[arg2].StreetPrice;
                         var a = Users[ID].StritNum != null ? Users[ID].StritNum.ToList() : new List<int>();
                         a.Add(arg2);
@@ -272,18 +279,23 @@ namespace Server
                 ///проверяем свою ли улицу решил заложить
                 if (Strits.strits[arg3].Owner == Users[ID1])
                 {
-                    Users[ID1].StritNum = (Users[ID1].StritNum.ToList().Where((a) => a != arg3)).ToArray();
-                    var t = Users[ID1].StritNum.ToList();
-                    t.Add(arg3);
-                    Users[ID2].StritNum = t.ToArray();
-                    Users[ID1].reason = string.Format("Улица {0} была продана", Strits.strits[arg3]);
-                    Users[ID2].reason = string.Format("Улица {0} была приобретена", Strits.strits[arg3]);
-                    Users[ID1].Deposit += arg4;
-                    Users[ID2].Deposit -= arg4;
-                    Log(string.Format("Игрок {0} продал улицу {2} игроку {1} за {3})", Users[ID1], Users[ID2], Strits.strits[arg3], arg4));
+                    if (ID1 == ID2)
+                        S1.SendTo(ID1, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта недвижимость принадлежит Вам, нельзя торговать с собой!" }));
+                    else
+                    {
+                        Users[ID1].StritNum = (Users[ID1].StritNum.ToList().Where((a) => a != arg3)).ToArray();
+                        var t = Users[ID1].StritNum.ToList();
+                        t.Add(arg3);
+                        Users[ID2].StritNum = t.ToArray();
+                        Users[ID1].reason = string.Format("  {0} была продана", Strits.strits[arg3]);
+                        Users[ID2].reason = string.Format("  {0} была приобретена", Strits.strits[arg3]);
+                        Users[ID1].Deposit += arg4;
+                        Users[ID2].Deposit -= arg4;
+                        Log(string.Format("Игрок {0} продал улицу {2} игроку {1} за {3})", Users[ID1], Users[ID2], Strits.strits[arg3], arg4));
+                    }
                 }
                 else
-                    S1.SendTo(ID1, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "This strit is not yours!" }));
+                    S1.SendTo(ID1, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта недвижимость вам не принадлежит!" }));
 
             }
             catch (Exception ex)
@@ -328,7 +340,7 @@ namespace Server
         private void S1_ClientDisconnect(string obj)
         {
             MessageBox.Show(string.Format("Игрок {0} отключился от игры", obj));
-             Log(string.Format("Игрок {0} отключился от игры", obj));
+            Log(string.Format("Игрок {0} отключился от игры", obj));
             Action Clear = () => comboBox.Items.Remove("User " + obj);
             Dispatcher.Invoke(Clear);
         }
