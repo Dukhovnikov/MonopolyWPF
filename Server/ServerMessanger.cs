@@ -45,23 +45,7 @@ namespace Server
         {
             // Перестаем ожидать подключений.
             _shold_wait_users = false;
-            // Подписываемся на сообщения.
-            try
-            {
-                for (int i = 0; i < Clients.Count; i++)
-                {
-                    // Отписываемся.
-                    Clients[i].HaveMessage -= _client_message;
-                    // Подписываемся.
-                    Clients[i].HaveMessage += _client_message;
-                    Thread th = new Thread(Clients[i].Recive);
-                    th.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
         }
 
         #region обработчики событий
@@ -117,6 +101,9 @@ namespace Server
                     int size = temp.Receive(bufer);
                     Clients.Add(new Client(temp, Encoding.UTF8.GetString(bufer, 0, size)));
                     UserConnected(Clients.Last().Name, (IPEndPoint)Clients.Last().MainSocket.RemoteEndPoint);
+                    // Отписываемся.
+                    Clients.Last().ClientDisconect -= SRV_ClientDisconect;
+                    Clients.Last().HaveMessage -= _client_message;
                     // Подписываемся.
                     Clients.Last().ClientDisconect += SRV_ClientDisconect;
                     Clients.Last().HaveMessage += _client_message;
