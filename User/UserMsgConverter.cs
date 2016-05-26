@@ -107,6 +107,10 @@ namespace User
         /// </summary>
         public event Action<string> OwnerEP;
         public event Action<string> Error;
+        /// <summary>
+        /// Обновление домов на улице (улица, кол-во домов)
+        /// </summary>
+        public event Action<byte, byte> RefreshHouse;
         #endregion
 
         /// <summary>
@@ -155,6 +159,9 @@ namespace User
                         break;
                     case ((byte)InMsgType.OtherOwner):
                         OwnerEP(Args[1] + ":" + Args[2]);
+                        break;
+                    case (13):
+                        RefreshHouse(byte.Parse(Args[1]), byte.Parse(Args[2][0].ToString()));
                         break;
                     default:
                         throw new Exception("Не известный тип входящего сообщения");

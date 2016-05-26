@@ -26,7 +26,11 @@ namespace User
         IUserMessanger user = new UserMessanger();
         IUserMessangConverter userConvert = new UserMsgConverter();
         List<Thread> Threads = new List<Thread>(3);
+        UserData Me;
         string UserName;
+        Action<string> Log;
+
+
         public UserForm()
         {
             InitializeComponent();
@@ -75,6 +79,11 @@ namespace User
                 temp.Content = item.StritName;
                 comboBox.Items.Add(temp);
             }
+            house2.Visibility = Visibility.Hidden;
+            house3.Visibility = Visibility.Hidden;
+            house4.Visibility = Visibility.Hidden;
+            hotel.Visibility = Visibility.Hidden;
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -89,6 +98,23 @@ namespace User
             userConvert.UpdateDeposit += UserConvert_UpdateDeposit;
             userConvert.UpdateStrits += UserConvert_UpdateStrits;
             userConvert.Error += UserConvert_Error;
+            userConvert.RefreshHouse += UserConvert_RefreshHouse;
+            Log = (S) =>
+            {
+                Action a = () =>
+                {
+                    listBox2.Items.Add(S);
+                    listBox2.ScrollIntoView(listBox2.Items[listBox2.Items.Count - 1]);
+                };
+                Dispatcher.Invoke(a);
+            };
+        }
+
+        private void UserConvert_RefreshHouse(byte arg1, byte arg2)
+        {
+            Strits.strits[arg1].HouseValue = arg2;
+            Dispatcher.Invoke(() => listBox3.Items.Refresh());
+            Dispatcher.Invoke(UpdateImgs);
         }
 
         private void UserConvert_Error(string obj)
@@ -101,13 +127,16 @@ namespace User
             MessageBox.Show(obj);
         }
 
+        /// <summary>
+        /// Обновление списка улиц
+        /// </summary>
+        /// <param name="obj"></param>
         private void UserConvert_UpdateStrits(byte[] obj)
         {
             Action act = () =>
             {
-                //listBox1.Items.Clear();
-                //foreach (var a in obj)
-                //    listBox1.Items.Add(a);
+                Me.StritNum = obj;
+                listBox3.ItemsSource = Me.StritList;
             };
             this.Dispatcher.Invoke(act);
         }
@@ -115,16 +144,30 @@ namespace User
         private void UserConvert_SystemMsg(string obj)
         {
             MessageBox.Show(obj);
+            Log(obj);
         }
 
+        /// <summary>
+        /// Поступившее предложение от другого игрока
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
         private void UserConvert_SellStrit(int arg1, byte arg2, string arg3)
         {
-            if (MessageBox.Show(string.Format(" Предложение от: {0}\n Предложенная цена: {1}\n За улицу: {2}", arg3, arg1, arg2), "Предложена сделака:", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            string S = string.Format(" Предложение от: {0}\n Предложенная цена: {1}\n За улицу: {2}", arg3, arg1, Strits.strits[arg2]);
+            if (MessageBox.Show(S, "Предложена сделака:", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 user.SendToSRV(string.Format("6:{0}:{1}:{2}", arg3, arg2, arg1));
+                Log(S);
             }
         }
 
+
+        /// <summary>
+        /// Обработка сделки
+        /// </summary>
+        /// <param name="obj"></param>
         [STAThread]
         private void UserConvert_OwnerEP(string obj)
         {
@@ -153,11 +196,17 @@ namespace User
             userConvert.Parse(obj);
         }
 
+        /// <summary>
+        /// Обнавление баланса
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
         private void UserConvert_UpdateDeposit(int arg1, string arg2)
         {
             MessageBox.Show(arg2);
             Action act = () => label.Content = arg1.ToString();
             this.Dispatcher.Invoke(act);
+            Log(arg2);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -181,6 +230,7 @@ namespace User
                     th2.Start();
                         UserName = textBox.Text;
                         textBox.IsEnabled = false;
+                        Me = new UserData(UserName);
                 }
             }
             catch (Exception ex)
@@ -199,20 +249,6 @@ namespace User
             (user as UserMessanger).Disconnect();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            //user.SendToSRV(textBox1.Text);
-        }
-
-        private void textBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //textBox.Text = "";
-        }
-
-        private void textBox1_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //textBox.Text = "";
-        }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
@@ -225,9 +261,100 @@ namespace User
         {
         }
 
+        /// <summary>
+        /// Отобразить информацию по улице
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBox3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            UpdateImgs();
+        }
 
+        /// <summary>
+        /// Обновить картинки домов
+        /// </summary>
+        void UpdateImgs()
+        {
+            if (listBox3.SelectedItem != null)
+                switch ((listBox3.SelectedItem as Strit).HouseValue)
+        {
+                    case (0):
+                        house1.Visibility = Visibility.Hidden;
+                        house2.Visibility = Visibility.Hidden;
+                        house3.Visibility = Visibility.Hidden;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (1):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Hidden;
+                        house3.Visibility = Visibility.Hidden;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (2):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Hidden;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (3):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Visible;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (4):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Visible;
+                        house4.Visibility = Visibility.Visible;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (5):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Visible;
+                        house4.Visibility = Visibility.Visible;
+                        hotel.Visibility = Visibility.Visible;
+                        break;
+                }
+        }
+
+        /// <summary>
+        /// Оплата ренты
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button7_Click(object sender, RoutedEventArgs e)
+        {
+            user.SendToSRV("5:" + comboBox.SelectedIndex);
+            Log(string.Format("Оплата ренты на {0}", comboBox.SelectedItem));
+        }
+
+        private void textBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Покупка дома
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button8_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBox3.SelectedItem != null)
+            {
+                int index = Strits.strits.IndexOf(Strits.strits.Where((a) => a.StritName == (listBox3.SelectedItem as Strit).StritName).ToArray()[0]);
+                user.SendToSRV("2:" + index);
+                Log(string.Format("Покупка дома на {0}", Strits.strits[index]));
+            }
+            else
+                MessageBox.Show("Сначала необходимо выбрать улицу!");
         }
     }
 }
