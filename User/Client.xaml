@@ -39,9 +39,10 @@
         <Image x:Name="house2" HorizontalAlignment="Left" Visibility="Visible" Height="27" Margin="492,213,0,0" VerticalAlignment="Top" Width="27" Source="Bitmap1.bmp"/>
         <Image x:Name="house3" HorizontalAlignment="Left" Visibility="Visible" Height="27" Margin="524,213,0,0" VerticalAlignment="Top" Width="27" Source="Bitmap1.bmp"/>
         <Image x:Name="house4" HorizontalAlignment="Left" Visibility="Visible" Height="27" Margin="556,213,0,0" VerticalAlignment="Top" Width="27" Source="Bitmap1.bmp"/>
-        <Label x:Name="label" Content="Мои дома" HorizontalAlignment="Left" Margin="441,155,0,0" VerticalAlignment="Top" Foreground="#FF11382C" FontSize="18.667" FontFamily="Lucida Sans Unicode" Width="201" HorizontalContentAlignment="Center" Height="34"/>
+        <Label x:Name="label" Content="" HorizontalAlignment="Left" Margin="404,121,0,0" VerticalAlignment="Top" Foreground="#FF11382C" FontSize="18.667" FontFamily="Lucida Sans Unicode" Width="83" HorizontalContentAlignment="Center" Height="34"/>
         <Image x:Name="hotel" HorizontalAlignment="Left" Height="32" Margin="590,208,0,0" VerticalAlignment="Top" Width="32" Source="Bitmap2.bmp"/>
         <Label x:Name="label5_Copy" Content="Банковские операции" HorizontalAlignment="Center" Margin="39,356,36.667,0" VerticalAlignment="Top" Width="585" FontSize="18.667" FontFamily="Lucida Sans Unicode" ToolTip="" RenderTransformOrigin="0.533,0.561" Foreground="#FF023520" HorizontalContentAlignment="Center" Height="40"/>
+        <Label x:Name="label9_Copy" Content="Информация о улице " HorizontalAlignment="Left" Margin="444,155,0,0" VerticalAlignment="Top" Width="194" FontSize="16" FontFamily="Lucida Sans Unicode" Foreground="#FF023520" HorizontalContentAlignment="Center" Height="34"/>
 
     </Grid>
 
