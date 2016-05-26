@@ -78,7 +78,7 @@ namespace Server
                         Users[ID].Deposit -= Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
                         Strits.strits[arg2].Owner.reason = string.Format("Игрок {0} оплатил ренту на улице {1}", Users[ID].UserName, Strits.strits[arg2]);
                         Strits.strits[arg2].Owner.Deposit += Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue];
-                        Log(string.Format("Игрок {0} заплатил пользователю {1} ренту за улицу {2} ({3})", Users[ID], Strits.strits[arg2].Owner, Strits.strits[arg2], Strits.strits[arg2].Rent[Strits.strits[arg2].HouseValue]));
+                        Log(string.Format("Игрок {0} заплатил пользователю {1} ренту за улицу {2} ({3})", Users[ID], Strits.strits[arg2].Owner, Strits.strits[arg2].Rent));
                     }
                 }
                 else
@@ -377,11 +377,6 @@ namespace Server
         {
             Log("Игра начинается!");
             S1.ListenAll();
-            for(int i = 0; i < Users.Count; i++)
-            {
-                Users[i].reason = "Игра начинается!";
-                Users[i].Deposit = 2000;
-            }
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)

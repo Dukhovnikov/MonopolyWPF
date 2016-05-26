@@ -32,7 +32,7 @@ namespace WpfApplication1
             set
             {
                 _deposit = value;
-                OnDepositChange?.Invoke(this);
+                OnDepositChange(this);
             }
         }
 
@@ -57,7 +57,7 @@ namespace WpfApplication1
             set
             {
                 _strits = value;
-                OnStritsChange?.Invoke(this);
+                OnStritsChange(this);
             }
         }
 
