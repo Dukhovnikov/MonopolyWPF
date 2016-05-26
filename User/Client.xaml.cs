@@ -398,7 +398,7 @@ namespace User
         private void button7_Click(object sender, RoutedEventArgs e)
         {
             user.SendToSRV("5:" + comboBox.SelectedIndex);
-            Log(string.Format("Оплата ренты на {0}", Strits.strits[comboBox.SelectedIndex]));
+            Log(string.Format("Оплата ренты на {0}", comboBox.SelectedItem));
         }
 
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
