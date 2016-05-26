@@ -180,7 +180,8 @@ namespace Server
                                     select str).ToList();
                     bool Good = true;
                     //ну для начала проверим на максимум
-                    if (Strits.strits[arg2].HouseValue < 5) {
+                    if (Strits.strits[arg2].HouseValue < 5)
+                    {
                         foreach (var a in OneColor)
                         {
                             //Проверяем чтоб все улицы принадлежали игроку
@@ -206,9 +207,9 @@ namespace Server
                             S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
                             SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Не соблюдены условия постройки дома!" }));
                     }
-                
-                else
-                    S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
+
+                    else
+                        S1.SendTo(ID, SrvMsgConvertet.Create(new string[] {
                             SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Максимальное количество домов!" }));
                 }
                 else
@@ -288,15 +289,15 @@ namespace Server
                         S1.SendTo(ID1, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта недвижимость принадлежит Вам, нельзя торговать с собой!" }));
                     else
                     {
-                        var w= Users[ID1].StritNum.ToList();
+                        var w = Users[ID1].StritNum.ToList();
                         w.Remove(arg3);
                         Users[ID1].StritNum = w.ToArray();
-                        var t = Users[ID2].StritNum==null?Users[ID2].StritNum.ToList():new List<int>(1);
+                        var t = Users[ID2].StritNum != null ? Users[ID2].StritNum.ToList() : new List<int>(1);
                         t.Add(arg3);
                         Users[ID2].StritNum = t.ToArray();
                         Strits.strits[arg3].Owner = Users[ID2];
-                        Users[ID1].reason = string.Format("  {0} была продана", Strits.strits[arg3]);
-                        Users[ID2].reason = string.Format("  {0} была приобретена", Strits.strits[arg3]);
+                        Users[ID1].reason = string.Format("  {0} была продана (+{1})", Strits.strits[arg3], arg4);
+                        Users[ID2].reason = string.Format("  {0} была приобретена (-{1})", Strits.strits[arg3], arg4);
                         Users[ID1].Deposit += arg4;
                         Users[ID2].Deposit -= arg4;
                         Log(string.Format("Игрок {0} продал улицу {2} игроку {1} за {3})", Users[ID1], Users[ID2], Strits.strits[arg3], arg4));
