@@ -22,5 +22,6 @@ namespace User
         /// Обновление домов на улице (улица, кол-во домов)
         /// </summary>
         event Action<byte, byte> RefreshHouse;
+        event Action<byte, bool> RefreshLide;
     }
 }

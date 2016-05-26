@@ -100,6 +100,7 @@ namespace User
             userConvert.UpdateStrits += UserConvert_UpdateStrits;
             userConvert.Error += UserConvert_Error;
             userConvert.RefreshHouse += UserConvert_RefreshHouse;
+            userConvert.RefreshLide += UserConvert_RefreshLide;
             Log = (S) =>
             {
                 Action a = () =>
@@ -109,6 +110,12 @@ namespace User
                 };
                 Dispatcher.Invoke(a);
             };
+        }
+
+        private void UserConvert_RefreshLide(byte arg1, bool arg2)
+        {
+            Strits.strits[arg1].IsLaid = arg2;
+            Dispatcher.Invoke(UpdateImgs);
         }
 
         private void UserConvert_RefreshHouse(byte arg1, byte arg2)
@@ -264,32 +271,32 @@ namespace User
         {
             if (textBox.Text != "")
             {
-            try
-            {
-                user.FindServer();
-                if ((user as UserMessanger).ServerIP != null)
+                try
                 {
-                    MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
-                    user.ConnectToSRV(textBox.Text);
-                    Thread th = new Thread(user.ListenTCP);
-                    Thread th2 = new Thread(user.ListenUDP);
-                    Threads.Add(th);
-                    Threads.Add(th2);
-                    th.IsBackground = true;
-                    th2.IsBackground = true;
-                    th.Start();
-                    th2.Start();
+                    user.FindServer();
+                    if ((user as UserMessanger).ServerIP != null)
+                    {
+                        MessageBox.Show(string.Format("Найден сервер: {0}", (user as UserMessanger).ServerIP));
+                        user.ConnectToSRV(textBox.Text);
+                        Thread th = new Thread(user.ListenTCP);
+                        Thread th2 = new Thread(user.ListenUDP);
+                        Threads.Add(th);
+                        Threads.Add(th2);
+                        th.IsBackground = true;
+                        th2.IsBackground = true;
+                        th.Start();
+                        th2.Start();
                         UserName = textBox.Text;
                         textBox.IsEnabled = false;
                         button5.IsEnabled = false;
                         Me = new UserData(UserName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
             else
             {
                 MessageBox.Show("Требуется задать имя игрока.", "Ошибка данных.", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -330,6 +337,7 @@ namespace User
         void UpdateImgs()
         {
             if (listBox3.SelectedItem != null)
+            {
                 switch ((listBox3.SelectedItem as Strit).HouseValue)
                 {
                     case (0):
@@ -375,6 +383,11 @@ namespace User
                         hotel.Visibility = Visibility.Visible;
                         break;
                 }
+            }
+            if (!(listBox3.SelectedItem as Strit).IsLaid)
+                button9.Content = "Заложить";
+            else
+                button9.Content = "Выкупить";
         }
 
         /// <summary>
@@ -385,7 +398,7 @@ namespace User
         private void button7_Click(object sender, RoutedEventArgs e)
         {
             user.SendToSRV("5:" + comboBox.SelectedIndex);
-            Log(string.Format("Оплата ренты на {0}", comboBox.SelectedItem));
+            Log(string.Format("Оплата ренты на {0}", Strits.strits[comboBox.SelectedIndex]));
         }
 
         private void textBox_GotFocus(object sender, RoutedEventArgs e)
@@ -405,6 +418,23 @@ namespace User
                 int index = Strits.strits.IndexOf(Strits.strits.Where((a) => a.StritName == (listBox3.SelectedItem as Strit).StritName).ToArray()[0]);
                 user.SendToSRV("2:" + index);
                 Log(string.Format("Покупка дома на {0}", Strits.strits[index]));
+            }
+            else
+                MessageBox.Show("Сначала необходимо выбрать улицу!");
+        }
+
+
+        /// <summary>
+        /// Заложить улицу
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button9_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBox3.SelectedItem != null)
+            {
+                int index = Strits.strits.IndexOf(Strits.strits.Where((a) => a.StritName == (listBox3.SelectedItem as Strit).StritName).ToArray()[0]);
+                user.SendToSRV("7:" + index);
             }
             else
                 MessageBox.Show("Сначала необходимо выбрать улицу!");
