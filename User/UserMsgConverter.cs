@@ -111,6 +111,10 @@ namespace User
         /// Обновление домов на улице (улица, кол-во домов)
         /// </summary>
         public event Action<byte, byte> RefreshHouse;
+        /// <summary>
+        /// Обновим информацию об заложенности улицы
+        /// </summary>
+        public event Action<byte, bool> RefreshLide;
         #endregion
 
         /// <summary>
@@ -162,6 +166,9 @@ namespace User
                         break;
                     case (13):
                         RefreshHouse(byte.Parse(Args[1]), byte.Parse(Args[2][0].ToString()));
+                        break;
+                    case (14):
+                        RefreshLide(byte.Parse(Args[1]), int.Parse(Args[2])==1);
                         break;
                     default:
                         throw new Exception("Не известный тип входящего сообщения");
