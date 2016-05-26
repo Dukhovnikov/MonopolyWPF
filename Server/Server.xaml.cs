@@ -288,10 +288,13 @@ namespace Server
                         S1.SendTo(ID1, SrvMsgConvertet.Create(new string[] { SrvMsgConvertet.OutMsgType.SystemMsg.GetHashCode().ToString(), "Эта недвижимость принадлежит Вам, нельзя торговать с собой!" }));
                     else
                     {
-                        Users[ID1].StritNum = (Users[ID1].StritNum.ToList().Where((a) => a != arg3)).ToArray();
-                        var t = Users[ID1].StritNum.ToList();
+                        var w= Users[ID1].StritNum.ToList();
+                        w.Remove(arg3);
+                        Users[ID1].StritNum = w.ToArray();
+                        var t = Users[ID2].StritNum==null?Users[ID2].StritNum.ToList():new List<int>(1);
                         t.Add(arg3);
                         Users[ID2].StritNum = t.ToArray();
+                        Strits.strits[arg3].Owner = Users[ID2];
                         Users[ID1].reason = string.Format("  {0} была продана", Strits.strits[arg3]);
                         Users[ID2].reason = string.Format("  {0} была приобретена", Strits.strits[arg3]);
                         Users[ID1].Deposit += arg4;
