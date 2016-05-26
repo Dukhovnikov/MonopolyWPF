@@ -233,51 +233,52 @@ namespace User
         /// </summary>
         void UpdateImgs()
         {
-            switch ((listBox3.SelectedItem as Strit).HouseValue)
-            {
-                case (0):
-                    house1.Visibility = Visibility.Hidden;
-                    house2.Visibility = Visibility.Hidden;
-                    house3.Visibility = Visibility.Hidden;
-                    house4.Visibility = Visibility.Hidden;
-                    hotel.Visibility = Visibility.Hidden;
-                    break;
-                case (1):
-                    house1.Visibility = Visibility.Visible;
-                    house2.Visibility = Visibility.Hidden;
-                    house3.Visibility = Visibility.Hidden;
-                    house4.Visibility = Visibility.Hidden;
-                    hotel.Visibility = Visibility.Hidden;
-                    break;
-                case (2):
-                    house1.Visibility = Visibility.Visible;
-                    house2.Visibility = Visibility.Visible;
-                    house3.Visibility = Visibility.Hidden;
-                    house4.Visibility = Visibility.Hidden;
-                    hotel.Visibility = Visibility.Hidden;
-                    break;
-                case (3):
-                    house1.Visibility = Visibility.Visible;
-                    house2.Visibility = Visibility.Visible;
-                    house3.Visibility = Visibility.Visible;
-                    house4.Visibility = Visibility.Hidden;
-                    hotel.Visibility = Visibility.Hidden;
-                    break;
-                case (4):
-                    house1.Visibility = Visibility.Visible;
-                    house2.Visibility = Visibility.Visible;
-                    house3.Visibility = Visibility.Visible;
-                    house4.Visibility = Visibility.Visible;
-                    hotel.Visibility = Visibility.Hidden;
-                    break;
-                case (5):
-                    house1.Visibility = Visibility.Visible;
-                    house2.Visibility = Visibility.Visible;
-                    house3.Visibility = Visibility.Visible;
-                    house4.Visibility = Visibility.Visible;
-                    hotel.Visibility = Visibility.Visible;
-                    break;
-            }
+            if (listBox3.SelectedItem != null)
+                switch ((listBox3.SelectedItem as Strit).HouseValue)
+                {
+                    case (0):
+                        house1.Visibility = Visibility.Hidden;
+                        house2.Visibility = Visibility.Hidden;
+                        house3.Visibility = Visibility.Hidden;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (1):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Hidden;
+                        house3.Visibility = Visibility.Hidden;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (2):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Hidden;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (3):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Visible;
+                        house4.Visibility = Visibility.Hidden;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (4):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Visible;
+                        house4.Visibility = Visibility.Visible;
+                        hotel.Visibility = Visibility.Hidden;
+                        break;
+                    case (5):
+                        house1.Visibility = Visibility.Visible;
+                        house2.Visibility = Visibility.Visible;
+                        house3.Visibility = Visibility.Visible;
+                        house4.Visibility = Visibility.Visible;
+                        hotel.Visibility = Visibility.Visible;
+                        break;
+                }
         }
 
         /// <summary>
